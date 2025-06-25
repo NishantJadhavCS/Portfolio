@@ -1,0 +1,90 @@
+.endorsements-section {
+    padding: 80px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 2.7rem;
+    color: #ffffff;
+    margin-bottom: 50px;
+    font-weight: 700;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.endorsement-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.endorsement-card {
+    background: linear-gradient(135deg, #101f4e, #0c1846);
+    color: white;
+    padding: 30px 20px;
+    border-radius: 16px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.endorsement-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.avatar img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #2b9385b5;
+    padding: 5px;
+    margin-bottom: 18px;
+    border: 2px solid #2b9385;
+}
+
+.endorsement-card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 5px 0;
+    color: #ffd700;
+}
+
+.role {
+    font-size: 0.95rem;
+    color: #c8e7ff;
+    margin-bottom: 20px;
+}
+
+.endorsement-card hr {
+    border: 0.5px solid #4c84d4;
+    margin: 15px 0;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    color: #ffffff;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #3b48ff;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+    .endorsement-card {
+        width: 90%;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
