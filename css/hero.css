@@ -1,0 +1,237 @@
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 200px;
+  height: 100vh;
+  position: relative;
+  gap: 50px;
+}
+
+.content {
+  min-width: 700px;
+}
+
+.tagline {
+  font-weight: bold;
+  background: linear-gradient(to right, #9b59b6, #6c5ce7);
+  color: white;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.name {
+  color: white;
+  font-weight: 800;
+}
+
+.typing {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #8e44ad, #6c5ce7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.resume-btn {
+  margin-top: 30px;
+  display: inline-block;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.resume-btn .arrow {
+  margin-left: 10px;
+}
+
+.visuals {
+  position: relative;
+}
+
+.visuals img {
+  height: 800px;
+  width: auto;
+}
+
+.planet {
+  top: 0;
+  left: 50px;
+  width: 400px;
+}
+
+.astronaut {
+  top: 100px;
+  left: 100px;
+  width: 200px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.rocket {
+  top: -50px;
+  right: 0;
+  width: 100px;
+  animation: fly 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fly {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-30px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive: Tablets */
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    padding: 150px 40px;
+    text-align: center;
+  }
+
+  .visuals img {
+    height: 500px;
+  }
+
+  .planet {
+    width: 300px;
+    left: 0;
+  }
+
+  .astronaut {
+    width: 150px;
+    left: 50px;
+  }
+
+  .rocket {
+    width: 80px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .typing {
+    font-size: 1.5rem;
+  }
+
+  .resume-btn {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive: Phones */
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .visuals img {
+    height: 350px;
+  }
+
+  .planet {
+    width: 200px;
+    left: 0;
+  }
+
+  .astronaut {
+    width: 100px;
+    left: 20px;
+  }
+
+  .rocket {
+    width: 60px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .typing {
+    font-size: 1.2rem;
+  }
+
+  .resume-btn {
+    font-size: 0.95rem;
+  }
+}
+
+/* ANIMATION */
+.hero .content>* {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.hero .tagline {
+  animation-delay: 0.2s;
+}
+
+.hero h1 {
+  animation-delay: 0.4s;
+}
+
+.hero h2 {
+  animation-delay: 0.6s;
+}
+
+.hero .resume-btn {
+  animation-delay: 0.8s;
+}
+
+.hero .social-links {
+  animation-delay: 1s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.planet {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}

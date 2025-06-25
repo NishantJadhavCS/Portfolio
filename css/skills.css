@@ -1,0 +1,174 @@
+/* Skills Section Container */
+.circle-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+/* Section Title */
+.circle-icons .section-title {
+  font-size: 2.4rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #5be3d6;
+}
+
+/* Icon Grid Wrapper */
+.icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper for Tooltip + Icon */
+.icon-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: -60px;
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
+  color: #0b0c2a;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 255, 187, 0.25);
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.icon-wrapper:hover .tooltip {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: popUp 0.4s ease-out;
+}
+
+/* Tooltip Pop Animation */
+@keyframes popUp {
+  0% {
+    transform: translateY(12px) scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-3px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Icon Circle Style */
+.icon-circle {
+  background-color: rgb(1, 10, 7);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.icon-circle img {
+  height: 60px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect */
+.icon-wrapper:hover .icon-circle {
+  transform: translateY(-8px);
+  box-shadow:
+    0 0 12px rgba(0, 255, 195, 0.8),
+    0 0 20px rgba(0, 255, 195, 0.5),
+    0 0 35px rgba(0, 255, 195, 0.3);
+  animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.icon-wrapper:hover .icon-circle img {
+  transform: scale(1.1);
+}
+
+/* Glowing Pulse Animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 12px rgba(0, 255, 195, 0.8),
+      0 0 20px rgba(0, 255, 195, 0.5),
+      0 0 35px rgba(0, 255, 195, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(0, 255, 225, 1),
+      0 0 30px rgba(0, 255, 225, 0.8),
+      0 0 50px rgba(0, 255, 225, 0.6);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .icon-circle img {
+    height: 45px;
+  }
+
+  .tooltip {
+    font-size: 0.75rem;
+    top: -40px;
+  }
+
+  .circle-icons .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+}
+
+
+
+/* Initial State */
+.icon-wrapper {
+  opacity: 0;
+  transform: scale(0.85) translateY(20px);
+  filter: blur(4px);
+  transition: 
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out,
+    filter 0.6s ease-out;
+  will-change: transform, opacity, filter;
+}
+
+/* Visible when in viewport */
+.icon-wrapper.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+/* Hover Animation */
+.icon-circle {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-circle:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
