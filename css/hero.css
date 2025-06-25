@@ -34,11 +34,18 @@ h1 {
 
 .typing {
   font-size: 2rem;
+  min-height: 1.2em;
   font-weight: bold;
   background: linear-gradient(90deg, #8e44ad, #6c5ce7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  display: inline-block;
+  white-space: nowrap;
+
+  min-width: 20ch;
 }
+
 
 .resume-btn {
   margin-top: 30px;

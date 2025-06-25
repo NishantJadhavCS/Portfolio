@@ -136,7 +136,7 @@ body {
 section {
   scroll-margin-top: 80px;
   /* 🧠 key trick */
-  padding-top: 20px;
+  padding-top: 100px;
   /* optional, for breathing space */
 }
 
@@ -168,7 +168,7 @@ section {
 }
 
 .section-title {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(to right, #00ffe7, #5f5fff);
   -webkit-background-clip: text;
@@ -309,7 +309,7 @@ section {
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .timeline {

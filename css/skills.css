@@ -14,16 +14,13 @@
   color: #5be3d6;
 }
 
-/* Icon Grid Wrapper */
 .icon-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 35px;
+  justify-items: center;
 }
 
-/* Wrapper for Tooltip + Icon */
 .icon-wrapper {
   position: relative;
   display: flex;
@@ -31,7 +28,6 @@
   align-items: center;
 }
 
-/* Tooltip */
 .tooltip {
   position: absolute;
   top: -60px;
@@ -56,16 +52,17 @@
   animation: popUp 0.4s ease-out;
 }
 
-/* Tooltip Pop Animation */
 @keyframes popUp {
   0% {
     transform: translateY(12px) scale(0.9);
     opacity: 0;
   }
+
   50% {
     transform: translateY(-3px) scale(1.05);
     opacity: 1;
   }
+
   100% {
     transform: translateY(0) scale(1);
   }
@@ -106,12 +103,15 @@
 
 /* Glowing Pulse Animation */
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow:
       0 0 12px rgba(0, 255, 195, 0.8),
       0 0 20px rgba(0, 255, 195, 0.5),
       0 0 35px rgba(0, 255, 195, 0.3);
   }
+
   50% {
     box-shadow:
       0 0 20px rgba(0, 255, 225, 1),
@@ -149,7 +149,7 @@
   opacity: 0;
   transform: scale(0.85) translateY(20px);
   filter: blur(4px);
-  transition: 
+  transition:
     opacity 0.6s ease-out,
     transform 0.6s ease-out,
     filter 0.6s ease-out;

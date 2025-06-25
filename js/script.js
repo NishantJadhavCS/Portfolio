@@ -19,10 +19,10 @@ function typeWriter(element, text, delay = 100, loop = false, loopDelay = 2000) 
   type();
 }
 
-const titleEl = document.querySelector('.section-title');
+// const titleEl = document.querySelector('.section-title');
 
-// To make it loop, pass 'true' for the loop parameter
-typeWriter(titleEl, 'Overview', 100, true, 2000); // Loops with a 2-second delay
+// // To make it loop, pass 'true' for the loop parameter
+// typeWriter(titleEl, 'Overview', 100, true, 2000); // Loops with a 2-second delay
 
 
 // Cards animation
