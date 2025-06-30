@@ -182,3 +182,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   skills.forEach(skill => observer.observe(skill));
 });
+
+
+let lastScrollTop = 0;
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  console.log("ScrollTop:", scrollTop, "Last:", lastScrollTop);
+
+  if (scrollTop > lastScrollTop) {
+    navbar.classList.add("hide");
+    console.log("Scrolling down, hide navbar");
+  } else {
+    navbar.classList.remove("hide");
+    console.log("Scrolling up, show navbar");
+  }
+
+  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+});
