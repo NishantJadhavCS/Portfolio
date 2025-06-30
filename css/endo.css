@@ -1,5 +1,6 @@
 .endorsements-section {
-    padding: 80px 20px;
+    padding: 0px 20px;
+    padding-top: 100px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -18,17 +19,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 70px;
     max-width: 1200px;
     width: 100%;
 }
 
 .endorsement-card {
-    background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(135deg, #0e1a40, #1b2d6e);
     color: white;
     padding: 30px 20px;
     border-radius: 16px;
-    width: 260px;
+    width: 350px;
     text-align: center;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     transition:
@@ -59,13 +60,13 @@
 }
 
 .avatar img {
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    background: #2b9385b5;
+    background: #d2afedb5;
     padding: 5px;
     margin-bottom: 18px;
-    border: 2px solid #2b9385;
+    border: 2px solid #d2afedb5;
 }
 
 .endorsement-card h3 {
