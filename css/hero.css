@@ -12,6 +12,14 @@
   min-width: 700px;
 }
 
+@media (max-width: 768px) {
+  .content {
+    min-width: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 .tagline {
   font-weight: bold;
   background: linear-gradient(to right, #9b59b6, #6c5ce7);
@@ -240,5 +248,12 @@ h1 {
 
   50% {
     transform: translateY(-20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .section-description {
+    padding: 0 20px;
+    font-size: 1.2rem;
   }
 }

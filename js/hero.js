@@ -27,3 +27,4 @@ function erase() {
 document.addEventListener("DOMContentLoaded", () => {
   if (words.length) setTimeout(type, 1000);
 });
+

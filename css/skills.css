@@ -172,3 +172,31 @@
   transform: scale(1.1) rotate(2deg);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
+
+@media (max-width: 1024px) {
+  .icon-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .icon-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .icon-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .icon-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
