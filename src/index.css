@@ -1,0 +1,89 @@
+:root {
+  /* Global Variables for Dark Theme (Default) */
+  --bg-primary: #0d0d1f;
+  --bg-secondary: #1a1a2e;
+  --bg-card: linear-gradient(145deg, #1a1a2e, #0e0e1a);
+  --bg-timeline: linear-gradient(145deg, #1e1e3f, #111126);
+  --bg-project: linear-gradient(135deg, #0e1a40, #1b2d6e);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #c2c2d6;
+  --text-muted: #a0a0b8;
+  
+  --accent-primary: #5be3d6;
+  --accent-secondary: #00ffe7;
+  --accent-tertiary: #5f5fff;
+  
+  --gradient-primary: linear-gradient(135deg, #00ffe7 0%, #5f5fff 100%);
+  --gradient-navbar: linear-gradient(145deg, #1e1e4c, #0e0e1a);
+  
+  --border-color: rgba(91, 227, 214, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --shadow-primary: rgba(0, 0, 0, 0.3);
+  --shadow-glow: rgba(0, 255, 231, 0.3);
+  
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='light'] {
+  /* Global Variables for Light Theme */
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-timeline: #ffffff;
+  --bg-project: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  
+  --accent-primary: #6c5ce7;
+  --accent-secondary: #9b59b6;
+  --accent-tertiary: #6c5ce7;
+  
+  --gradient-primary: linear-gradient(135deg, #6c5ce7 0%, #9b59b6 100%);
+  --gradient-navbar: rgba(255, 255, 255, 0.95);
+  
+  --border-color: rgba(108, 92, 231, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --shadow-primary: rgba(0, 0, 0, 0.05);
+  --shadow-glow: rgba(108, 92, 231, 0.2);
+  
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: var(--bg-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}

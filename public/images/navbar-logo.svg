@@ -1,0 +1,55 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="braceGrad" x1="96" y1="72" x2="416" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#33C7FF"/>
+      <stop offset="55%" stop-color="#4B66FF"/>
+      <stop offset="100%" stop-color="#8C4DFF"/>
+    </linearGradient>
+
+    <linearGradient id="nGrad" x1="188" y1="88" x2="350" y2="424" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2BD9FF"/>
+      <stop offset="50%" stop-color="#4B66FF"/>
+      <stop offset="100%" stop-color="#8C4DFF"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#3B6CFF" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <path
+    d="M176 72 C136 72 104 104 104 144 V176 C104 201 84 221 59 221 H48 V291 H59 C84 291 104 311 104 336 V368 C104 408 136 440 176 440"
+    stroke="url(#braceGrad)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#softGlow)"
+  />
+
+  <path
+    d="M336 72 C376 72 408 104 408 144 V176 C408 201 428 221 453 221 H464 V291 H453 C428 291 408 311 408 336 V368 C408 408 376 440 336 440"
+    stroke="url(#braceGrad)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#softGlow)"
+  />
+
+  <path
+    d="M208 88 L352 424"
+    stroke="url(#nGrad)"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#softGlow)"
+  />
+
+  <path
+    d="M220 88 L364 424"
+    stroke="#B9F4FF"
+    stroke-opacity="0.18"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
