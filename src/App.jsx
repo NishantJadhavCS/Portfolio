@@ -7,11 +7,13 @@ import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { ThemeProvider } from './context/ThemeContext'
+import CustomCursor from './components/CustomCursor'
 import './App.css'
 
 function App() {
   return (
     <ThemeProvider>
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

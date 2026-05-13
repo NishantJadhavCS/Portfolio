@@ -149,7 +149,7 @@ a:hover .hero-icon {
   width: auto;
 }
 
-.hero .content > * {
+.hero .content>* {
   animation: fadeUp 0.8s ease forwards;
   opacity: 0;
   transform: translateY(30px);
@@ -386,7 +386,9 @@ a:hover .hero-icon {
 }
 
 .tooltip {
-  background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 255, 187, 0.25);
   color: #0b0c2a;
@@ -410,7 +412,8 @@ a:hover .hero-icon {
 
 .icon-circle {
   align-items: center;
-  background-color: var(--glass-bg); border: 1px solid var(--glass-border);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -442,7 +445,7 @@ a:hover .hero-icon {
   padding: 80px 2rem;
 }
 
-.projects-section > p {
+.projects-section>p {
   color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.6;
@@ -508,7 +511,8 @@ a:hover .hero-icon {
 }
 
 .tags span {
-  background: var(--accent-primary); color: var(--text-primary);
+  background: var(--accent-primary);
+  color: var(--text-primary);
   border-radius: 999px;
   color: white;
   font-size: 0.8rem;
@@ -558,6 +562,7 @@ a:hover .hero-icon {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -575,6 +580,7 @@ a:hover .hero-icon {
 }
 
 @keyframes pulseGlow {
+
   0%,
   100% {
     box-shadow: 0 0 12px rgba(0, 255, 195, 0.8), 0 0 20px rgba(0, 255, 195, 0.5), 0 0 35px rgba(0, 255, 195, 0.3);
@@ -606,7 +612,7 @@ a:hover .hero-icon {
 }
 
 @media (max-width: 768px) {
-/* Mobile Nav styles moved to Navbar.css */
+  /* Mobile Nav styles moved to Navbar.css */
 
   .overview-cards {
     display: flex;
@@ -648,7 +654,7 @@ a:hover .hero-icon {
 }
 
 @media (max-width: 600px) {
-/* Media queries adjusted */
+  /* Media queries adjusted */
 
   .hero {
     padding: 90px 20px 60px;

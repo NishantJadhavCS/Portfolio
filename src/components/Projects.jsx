@@ -48,45 +48,40 @@ const projects = [
 function Projects() {
   return (
     <section id="Projects" className="projects-section">
+      <div className="bg-text-container">
+        <span className="bg-text left">Latest</span>
+        <span className="bg-text right">Works</span>
+      </div>
+
       <div className="projects-header">
         <Reveal>
           <h2 className="section-title">Projects</h2>
           <p className="section-description">
-            A showcase of selected projects highlighting my skills in web development, design, and problem-solving. Each
-            includes a short description and links to live demos or source code.
+            A showcase of selected projects highlighting my skills in web development and design.
           </p>
         </Reveal>
       </div>
 
       <div className="projects-stack-wrapper">
-        <ScrollStack 
-          itemDistance={50} 
-          itemScale={0.05} 
-          baseScale={0.9} 
+        <ScrollStack
+          itemDistance={50}
+          itemScale={0.05}
+          baseScale={0.9}
           useWindowScroll={true}
           rotationAmount={0}
         >
           {projects.map((project, idx) => (
             <ScrollStackItem key={idx}>
-              {project.href ? (
-                <a href={project.href} target="_blank" rel="noreferrer" className="project-stack-link-wrapper">
-                  <div className="project-stack-card-inner" style={{ backgroundColor: project.color }}>
-                    <div className="project-card-text">
-                      <h3>{project.title}</h3>
-                      <p>{project.description}</p>
-                      <div className="project-tags">
-                        {project.tags.map((tag) => (
-                          <span key={tag}>{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="project-card-visual">
-                      <img src={project.image} alt={project.alt} />
-                    </div>
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noreferrer"
+                className="project-stack-link-wrapper"
+              >
+                <div className="project-stack-card-inner">
+                  <div className="project-card-visual">
+                    <img src={project.image} alt={project.alt} />
                   </div>
-                </a>
-              ) : (
-                <div className="project-stack-card-inner" style={{ backgroundColor: project.color }}>
                   <div className="project-card-text">
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
@@ -96,11 +91,8 @@ function Projects() {
                       ))}
                     </div>
                   </div>
-                  <div className="project-card-visual">
-                    <img src={project.image} alt={project.alt} />
-                  </div>
                 </div>
-              )}
+              </a>
             </ScrollStackItem>
           ))}
         </ScrollStack>
