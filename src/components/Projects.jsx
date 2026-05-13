@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Reveal from './Reveal'
 import ScrollStack, { ScrollStackItem } from './ScrollStack'
 import './Projects.css'
@@ -46,6 +47,17 @@ const projects = [
 ]
 
 function Projects() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section id="Projects" className="projects-section">
       <div className="bg-text-container">
@@ -64,11 +76,14 @@ function Projects() {
 
       <div className="projects-stack-wrapper">
         <ScrollStack
-          itemDistance={50}
-          itemScale={0.05}
-          baseScale={0.9}
+          itemDistance={isMobile ? 150 : 250}
+          itemScale={0.04}
+          baseScale={0.92}
           useWindowScroll={true}
           rotationAmount={0}
+          itemStackDistance={isMobile ? 8 : 20}
+          /* Calculated to center an 82vh card perfectly on screen */
+          stackPosition={isMobile ? "10%" : "9%"}
         >
           {projects.map((project, idx) => (
             <ScrollStackItem key={idx}>

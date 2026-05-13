@@ -230,7 +230,7 @@ const ScrollStack = ({
     }
   }, [handleScroll, useWindowScroll]);
 
-  useLayoutEffect(() => {
+  const updateOffsets = useCallback(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
@@ -240,17 +240,11 @@ const ScrollStack = ({
         : scroller.querySelectorAll('.scroll-stack-card')
     );
 
+    if (cards.length === 0) return;
+
     cardsRef.current = cards;
-    cardOffsetsRef.current = cards.map(card => {
-      if (useWindowScroll) {
-        const rect = card.getBoundingClientRect();
-        return rect.top + window.scrollY;
-      }
-      return card.offsetTop;
-    });
 
-    const transformsCache = lastTransformsRef.current;
-
+    // Apply styles first
     cards.forEach((card, i) => {
       if (i < cards.length - 1) {
         card.style.marginBottom = `${itemDistance}px`;
@@ -259,49 +253,64 @@ const ScrollStack = ({
       card.style.transformOrigin = 'top center';
       card.style.backfaceVisibility = 'hidden';
       card.style.transform = 'translateZ(0)';
-      card.style.webkitTransform = 'translateZ(0)';
-      card.style.perspective = '1000px';
-      card.style.webkitPerspective = '1000px';
     });
 
-    setupLenis();
+    // Force reflow
+    void scroller.offsetHeight;
+
+    cardOffsetsRef.current = cards.map(card => {
+      if (useWindowScroll) {
+        const rect = card.getBoundingClientRect();
+        return rect.top + window.scrollY;
+      }
+      return card.offsetTop;
+    });
 
     updateCardTransforms();
+  }, [itemDistance, useWindowScroll, updateCardTransforms]);
+
+  useLayoutEffect(() => {
+    // Initial measurement
+    updateOffsets();
+
+    const lenis = setupLenis();
+
+    const handleResize = () => {
+      updateOffsets();
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('load', handleResize); // Extra insurance for images
+
+    // Multiple triggers to ensure accuracy as the page hydrates and loads
+    const timers = [
+      setTimeout(updateOffsets, 100),
+      setTimeout(updateOffsets, 500),
+      setTimeout(updateOffsets, 1500)
+    ];
 
     return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('load', handleResize);
+      timers.forEach(clearTimeout);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
+      if (lenis) {
+        lenis.destroy();
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];
-      transformsCache.clear();
+      lastTransformsRef.current.clear();
       isUpdatingRef.current = false;
     };
-  }, [
-    itemDistance,
-    itemScale,
-    itemStackDistance,
-    stackPosition,
-    scaleEndPosition,
-    baseScale,
-    scaleDuration,
-    rotationAmount,
-    blurAmount,
-    useWindowScroll,
-    onStackComplete,
-    setupLenis,
-    updateCardTransforms
-  ]);
+  }, [setupLenis, updateOffsets]);
 
   return (
     <div className={`scroll-stack-scroller ${className}`.trim()} ref={scrollerRef}>
       <div className="scroll-stack-inner">
         {children}
-        {/* Spacer so the last pin can release cleanly */}
-        <div className="scroll-stack-end" />
+        <div className="scroll-stack-end" style={{ height: '1px', marginTop: '20vh' }} />
       </div>
     </div>
   );
