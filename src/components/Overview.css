@@ -69,10 +69,47 @@
 
 @media (max-width: 768px) {
   .overview-section {
-    padding: 80px 5%;
+    padding: 80px 20px 60px;
   }
   
   .section-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+  }
+
+  .section-description {
+    font-size: 1rem;
+    margin-bottom: 40px;
+    padding: 0 10px;
+    line-height: 1.6;
+  }
+
+  .overview-cards {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-section {
+    padding: 60px 15px 40px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .overview-card-content {
+    padding: 1.5rem !important;
+    gap: 15px;
+  }
+
+  .overview-card-icon {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .overview-card-content h3 {
+    font-size: 1.2rem;
   }
 }
