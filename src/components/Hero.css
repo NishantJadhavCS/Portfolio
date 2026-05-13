@@ -106,26 +106,46 @@
   margin-bottom: 50px;
 }
 
-.hero-resume-btn {
+.hero-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: var(--gradient-primary);
-  color: #ffffff; /* keep text white on both gradients */
   font-weight: 800;
   font-size: 1.1rem;
   padding: 15px 36px;
   border-radius: 999px;
   text-decoration: none;
-  box-shadow: 0 4px 20px var(--shadow-glow);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
-[data-theme='light'] .hero-resume-btn {
-  color: #ffffff;
+  transition: all 0.3s ease;
 }
 
-.hero-resume-btn:hover {
+.hero-btn-primary {
+  background: var(--gradient-primary);
+  color: #ffffff !important; /* keep text white on both gradients */
+  box-shadow: 0 4px 20px var(--shadow-glow);
+}
+
+.hero-btn-primary:hover {
   box-shadow: 0 8px 30px var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.hero-btn-secondary {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px var(--shadow-primary);
+}
+
+.hero-btn-secondary:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+[data-theme='light'] .hero-btn-primary {
+  color: #ffffff !important;
 }
 
 .hero-socials {
@@ -238,7 +258,7 @@
   .hero-role-wrapper {
     font-size: 1.1rem;
   }
-  .hero-resume-btn {
+  .hero-btn {
     padding: 12px 28px;
     font-size: 1rem;
   }

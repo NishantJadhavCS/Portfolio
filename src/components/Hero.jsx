@@ -132,8 +132,19 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <motion.a
+            href="https://wa.me/918928755993"
+            className="hero-btn hero-btn-primary"
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fa-brands fa-whatsapp" style={{ fontSize: '22px' }}></i> Get in Touch
+          </motion.a>
+
+          <motion.a
             href="https://drive.google.com/file/d/1PgAFWFaIV4r7Ol1Y5rPA_Zg7LOsPQZb2/view?usp=sharing"
-            className="hero-resume-btn"
+            className="hero-btn hero-btn-secondary"
             target="_blank"
             rel="noreferrer"
             whileHover={{ scale: 1.05 }}
