@@ -251,6 +251,37 @@
   transform: translateY(-2px);
 }
 
+/* Light Theme Overrides */
+[data-theme='light'] .tab-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='light'] .experience-details {
+  background: #fcfcfc;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .card-header {
+  border-bottom: 2px solid #e2e8f0;
+}
+
+[data-theme='light'] .meta-item {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+[data-theme='light'] .tech-tag {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+[data-theme='light'] .tab-btn.active {
+  background: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+
 /* Mobile Responsive */
 @media (max-width: 992px) {
   .experience-content-wrapper {

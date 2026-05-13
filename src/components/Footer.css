@@ -9,6 +9,25 @@
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+[data-theme='light'] .site-footer {
+  background-color: #ffffff;
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .site-footer .footer-description {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .site-footer .footer-btn.secondary {
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .site-footer .footer-quick-links a,
+[data-theme='light'] .site-footer .footer-copyright {
+  color: var(--text-muted);
+}
+
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;

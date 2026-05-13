@@ -270,6 +270,10 @@ a:hover .hero-icon {
   padding: 80px 20px;
 }
 
+[data-theme='light'] .circle-icons {
+  background: var(--bg-secondary);
+}
+
 .icon-grid {
   display: grid;
   gap: 35px;
@@ -321,6 +325,10 @@ a:hover .hero-icon {
   justify-content: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100px;
+}
+
+[data-theme='light'] .icon-circle {
+  background-color: #ffffff;
 }
 
 .icon-circle img {

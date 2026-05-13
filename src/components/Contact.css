@@ -186,6 +186,22 @@
   transform: translateY(0);
 }
 
+/* Light Theme Overrides */
+[data-theme='light'] .contact-form-wrapper {
+  background: #fcfcfc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .form-group input,
+[data-theme='light'] .form-group textarea {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] .submit-btn {
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+}
+
 /* Mobile Responsive */
 @media (max-width: 992px) {
   .contact-container {

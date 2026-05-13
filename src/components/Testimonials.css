@@ -87,7 +87,7 @@
 }
 
 .testimonial-card-modern.featured {
-  padding: 80px 60px;
+  padding: 40px 60px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -275,8 +275,13 @@
 
 /* Theme Adjustments */
 [data-theme='light'] .testimonial-card-modern {
+  background: #f8fafc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .testimonial-card-modern.featured {
   background: #ffffff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Responsive Extra */
