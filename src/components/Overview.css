@@ -67,6 +67,10 @@
   color: var(--text-primary);
 }
 
+.mobile-only {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .overview-section {
     padding: 80px 20px 60px;
@@ -84,9 +88,75 @@
     line-height: 1.6;
   }
 
-  .overview-cards {
-    grid-template-columns: 1fr !important;
-    gap: 20px;
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .overview-carousel {
+    position: relative;
+    width: 100%;
+    padding-bottom: 5px;
+    display: flex !important;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .carousel-content-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 5px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .carousel-content-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-card-wrapper {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    min-height: 380px;
+  }
+
+  /* Make mobile cards portrait */
+  .mobile-only .overview-card-content {
+    min-height: 350px;
+    justify-content: center;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 5px;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 10px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--glass-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--accent-primary);
+    width: 24px;
+    border-radius: 4px;
   }
 }
 
