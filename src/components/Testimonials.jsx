@@ -102,6 +102,17 @@ function Testimonials() {
                   exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.3 }}
                   className="testimonial-card-modern grid-card"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = Math.abs(offset.x) * velocity.x;
+                    const swipeConfidenceThreshold = 10000;
+                    if (swipe < -swipeConfidenceThreshold) {
+                      nextSlide();
+                    } else if (swipe > swipeConfidenceThreshold) {
+                      prevSlide();
+                    }
+                  }}
                 >
                   <Quote className="quote-icon-modern grid-quote" size={24} />
                   <div className="card-top-modern">
