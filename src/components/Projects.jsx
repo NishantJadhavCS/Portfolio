@@ -7,6 +7,7 @@ const projects = [
   {
     title: 'DumplingKhang - Restaurant Landing Page',
     image: '/images/dumplingkhang.png',
+    mobileImage: '/images/dumplingkhang-mobile.png',
     alt: 'DumplingKhang landing page',
     href: 'https://www.dumplingkhang.com',
     description:
@@ -17,6 +18,7 @@ const projects = [
   {
     title: 'Guyal - E-commerce Jewelry Store',
     image: '/images/guyal-website.png',
+    mobileImage: '/images/guyal-mobile.png',
     alt: 'Guyal e-commerce website',
     href: 'https://www.guyal.com/',
     description:
@@ -37,6 +39,7 @@ const projects = [
   {
     title: 'RPious Couture - Clothing E-com Website',
     image: '/images/rpious-website.png',
+    mobileImage: '/images/rpious-mobile.png',
     alt: 'RPious Couture website',
     href: 'https://rpiouscouture.com/',
     description:
@@ -95,7 +98,10 @@ function Projects() {
               >
                 <div className="project-stack-card-inner">
                   <div className="project-card-visual">
-                    <img src={project.image} alt={project.alt} />
+                    <img 
+                      src={isMobile && project.mobileImage ? project.mobileImage : project.image} 
+                      alt={project.alt} 
+                    />
                   </div>
                   <div className="project-card-text">
                     <h3>{project.title}</h3>

@@ -191,4 +191,8 @@
     font-size: 0.9rem;
     -webkit-line-clamp: 4;
   }
+
+  .project-card-visual img {
+    object-position: top;
+  }
 }
