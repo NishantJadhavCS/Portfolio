@@ -39,25 +39,7 @@ function Overview() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const scrollContainerRef = useRef(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollContainerRef.current) {
-        const container = scrollContainerRef.current;
-        if (container.children.length === 0) return;
-        const cardWidth = container.children[0].offsetWidth + 15; // 15px gap
-        const maxScrollLeft = container.scrollWidth - container.clientWidth;
-        let nextScrollLeft = container.scrollLeft + cardWidth;
-        
-        if (nextScrollLeft >= maxScrollLeft - 10) {
-          nextScrollLeft = 0;
-        }
-        
-        container.scrollTo({ left: nextScrollLeft, behavior: 'smooth' });
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // Auto-scrolling removed as per user request
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
