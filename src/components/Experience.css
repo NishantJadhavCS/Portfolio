@@ -289,11 +289,18 @@
     gap: 40px;
   }
   
+  .experience-tabs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
   .experience-tabs {
     flex-direction: row;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     scrollbar-width: none;
+    scroll-snap-type: x mandatory;
   }
   
   .experience-tabs::-webkit-scrollbar {
@@ -302,10 +309,37 @@
   
   .tab-btn {
     flex-shrink: 0;
-    width: auto;
+    width: 85%;
     padding: 15px 25px;
+    scroll-snap-align: start;
   }
   
+  .experience-tabs::after {
+    content: '';
+    flex: 0 0 15%;
+  }
+  
+  .experience-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 5px;
+  }
+
+  .exp-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--glass-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .exp-dot.active {
+    background: var(--accent-primary);
+    transform: scale(1.5);
+  }
+
   .tab-indicator {
     display: none;
   }

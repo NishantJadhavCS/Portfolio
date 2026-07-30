@@ -44,6 +44,21 @@ const experiences = [
 
 function Experience() {
   const [activeTab, setActiveTab] = useState(0);
+  const tabScrollRef = useRef(null);
+
+  const handleTabScroll = () => {
+    if (tabScrollRef.current) {
+      const container = tabScrollRef.current;
+      if (container.children.length === 0) return;
+      // Use actual width plus an approximation of the gap
+      const cardWidth = container.children[0].offsetWidth + 15;
+      const scrollPosition = container.scrollLeft;
+      const currentIndex = Math.round(scrollPosition / cardWidth);
+      if (currentIndex !== activeTab) {
+        setActiveTab(currentIndex);
+      }
+    }
+  };
 
   return (
     <section id="experience" className="experience-modern">
@@ -67,20 +82,43 @@ function Experience() {
 
         <div className="experience-content-wrapper">
           {/* Tabs Navigation */}
-          <div className="experience-tabs">
-            {experiences.map((exp, index) => (
-              <button
-                key={index}
-                className={`tab-btn ${activeTab === index ? 'active' : ''}`}
-                onClick={() => setActiveTab(index)}
-              >
-                <div className="tab-indicator"></div>
-                <div className="tab-content">
-                  <span className="tab-company">{exp.company}</span>
-                  <span className="tab-role">{exp.role}</span>
-                </div>
-              </button>
-            ))}
+          <div className="experience-tabs-container">
+            <div 
+              className="experience-tabs" 
+              ref={tabScrollRef}
+              onScroll={handleTabScroll}
+            >
+              {experiences.map((exp, index) => (
+                <button
+                  key={index}
+                  className={`tab-btn ${activeTab === index ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveTab(index);
+                    if (tabScrollRef.current) {
+                      const container = tabScrollRef.current;
+                      const cardWidth = container.children[0].offsetWidth + 15;
+                      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <div className="tab-indicator"></div>
+                  <div className="tab-content">
+                    <span className="tab-company">{exp.company}</span>
+                    <span className="tab-role">{exp.role}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+            
+            <div className="experience-dots mobile-only">
+              {experiences.map((_, index) => (
+                <span 
+                  key={index} 
+                  className={`exp-dot ${activeTab === index ? 'active' : ''}`}
+                  onClick={() => setActiveTab(index)}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Details View */}
