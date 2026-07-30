@@ -87,6 +87,8 @@ function Projects() {
           itemStackDistance={isMobile ? 8 : 20}
           /* Calculated to center an 82vh card perfectly on screen */
           stackPosition={isMobile ? "10%" : "9%"}
+          /* Ensure smooth scaling over a longer scroll distance instead of suddenly shrinking */
+          scaleEndPosition="-50%"
         >
           {projects.map((project, idx) => (
             <ScrollStackItem key={idx}>
