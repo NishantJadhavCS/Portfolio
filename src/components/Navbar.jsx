@@ -122,7 +122,21 @@ function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
                 >
-                  <a href={item.href} onClick={() => setIsOpen(false)}>
+                  <a 
+                    href={item.href} 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      const targetId = item.href.substring(1);
+                      const target = document.getElementById(targetId);
+                      if (target) {
+                        // Allow a small delay so the menu closing animation can begin cleanly
+                        setTimeout(() => {
+                          target.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }
+                    }}
+                  >
                     {item.label}
                   </a>
                 </motion.li>
