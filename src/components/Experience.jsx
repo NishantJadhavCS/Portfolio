@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, Calendar, MapPin, ExternalLink, ChevronRight } from 'lucide-react';
 import './Experience.css';
@@ -44,6 +44,22 @@ const experiences = [
 
 function Experience() {
   const [activeTab, setActiveTab] = useState(0);
+  const tabsRef = useRef(null);
+
+  useEffect(() => {
+    if (tabsRef.current) {
+      const activeBtn = tabsRef.current.children[activeTab];
+      if (activeBtn) {
+        const containerWidth = tabsRef.current.offsetWidth;
+        const btnLeft = activeBtn.offsetLeft;
+        const btnWidth = activeBtn.offsetWidth;
+        tabsRef.current.scrollTo({
+          left: btnLeft - containerWidth / 2 + btnWidth / 2,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [activeTab]);
   const tabScrollRef = useRef(null);
 
   const handleTabScroll = () => {
@@ -83,9 +99,9 @@ function Experience() {
         <div className="experience-content-wrapper">
           {/* Tabs Navigation */}
           <div className="experience-tabs-container">
-            <div 
-              className="experience-tabs" 
-              ref={tabScrollRef}
+            <div
+              className="experience-tabs"
+              ref={tabsRef}
               onScroll={handleTabScroll}
             >
               {experiences.map((exp, index) => (
@@ -109,11 +125,11 @@ function Experience() {
                 </button>
               ))}
             </div>
-            
+
             <div className="experience-dots mobile-only">
               {experiences.map((_, index) => (
-                <span 
-                  key={index} 
+                <span
+                  key={index}
                   className={`exp-dot ${activeTab === index ? 'active' : ''}`}
                   onClick={() => setActiveTab(index)}
                 />
@@ -129,8 +145,20 @@ function Experience() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.3 }}
                 className="details-card"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const isLeftSwipe = offset.x < -50 || velocity.x < -300;
+                  const isRightSwipe = offset.x > 50 || velocity.x > 300;
+                  
+                  if (isLeftSwipe && activeTab < experiences.length - 1) {
+                    setActiveTab((prev) => prev + 1);
+                  } else if (isRightSwipe && activeTab > 0) {
+                    setActiveTab((prev) => prev - 1);
+                  }
+                }}
               >
                 <div className="card-header">
                   <div className="header-main">
