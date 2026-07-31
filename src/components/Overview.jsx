@@ -103,39 +103,53 @@ Open to freelance and contract opportunities in full stack development, e-commer
 
         {/* Mobile Carousel View */}
         <div className="overview-carousel mobile-only">
-          <div 
-            className="carousel-content-scroll" 
-            ref={scrollContainerRef}
-            onScroll={handleScroll}
-          >
-            {services.map((service, index) => (
-              <div key={index} className="mobile-card-wrapper">
-                <BorderGlow
-                  className="overview-card-glow"
-                  glowColor={service.glowColor}
-                  backgroundColor={cardBg}
-                  colors={service.colors}
-                  borderRadius={24}
-                  glowRadius={50}
-                  glowIntensity={1.2}
-                  animated={true}
-                >
-                  <div className="overview-card-content" style={{ padding: '2.5rem' }}>
-                    <div className="overview-card-icon">
-                      {service.icon}
+          <div className="carousel-content">
+            <motion.div
+              className="carousel-track"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              animate={{ x: `calc(-${currentSlide * 85}% - ${currentSlide * 15}px)` }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              onDragEnd={(e, { offset, velocity }) => {
+                const isLeftSwipe = offset.x < -50 || velocity.x < -300;
+                const isRightSwipe = offset.x > 50 || velocity.x > 300;
+                
+                if (isLeftSwipe && currentSlide < services.length - 1) {
+                  setCurrentSlide((prev) => prev + 1);
+                } else if (isRightSwipe && currentSlide > 0) {
+                  setCurrentSlide((prev) => prev - 1);
+                }
+              }}
+            >
+              {services.map((service, index) => (
+                <div key={index} className="mobile-card-wrapper">
+                  <BorderGlow
+                    className="overview-card-glow"
+                    glowColor={service.glowColor}
+                    backgroundColor={cardBg}
+                    colors={service.colors}
+                    borderRadius={24}
+                    glowRadius={50}
+                    glowIntensity={1.2}
+                    animated={true}
+                  >
+                    <div className="overview-card-content" style={{ padding: '2.5rem' }}>
+                      <div className="overview-card-icon">
+                        {service.icon}
+                      </div>
+                      <h3>{service.title}</h3>
                     </div>
-                    <h3>{service.title}</h3>
-                  </div>
-                </BorderGlow>
-              </div>
-            ))}
+                  </BorderGlow>
+                </div>
+              ))}
+            </motion.div>
           </div>
-          
+
           <div className="carousel-controls" style={{ marginTop: '10px' }}>
             <div className="carousel-dots">
               {services.map((_, index) => (
-                <span 
-                  key={index} 
+                <span
+                  key={index}
                   className={`dot ${currentSlide === index ? 'active' : ''}`}
                   onClick={() => {
                     setCurrentSlide(index);

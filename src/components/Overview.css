@@ -75,7 +75,7 @@
   .overview-section {
     padding: 80px 20px 60px;
   }
-  
+
   .section-title {
     font-size: 2.2rem;
     margin-bottom: 25px;
@@ -105,23 +105,20 @@
     gap: 15px;
   }
 
-  .carousel-content-scroll {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 15px;
-    padding-bottom: 5px;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  .carousel-content {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
   }
 
-  .carousel-content-scroll::-webkit-scrollbar {
-    display: none;
+  .carousel-track {
+    display: flex;
+    gap: 15px;
+    width: 100%;
   }
 
   .mobile-card-wrapper {
     flex: 0 0 85%;
-    scroll-snap-align: center;
     min-height: 380px;
   }
 
@@ -164,7 +161,7 @@
   .overview-section {
     padding: 60px 15px 40px;
   }
-  
+
   .section-title {
     font-size: 1.8rem;
   }
