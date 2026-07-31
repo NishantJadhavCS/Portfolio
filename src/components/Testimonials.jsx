@@ -32,11 +32,11 @@ function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % otherTestimonials.length);
+    setCurrentSlide((prev) => (prev < otherTestimonials.length - 1 ? prev + 1 : prev));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + otherTestimonials.length) % otherTestimonials.length);
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   return (
