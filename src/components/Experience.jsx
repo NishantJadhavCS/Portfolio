@@ -77,7 +77,7 @@ function Experience() {
   };
 
   return (
-    <section id="experience" className="experience-modern">
+    <section id="experience" className="experience-modern" data-aos="fade-up">
       <div className="experience-bg-glow"></div>
 
       <div className="experience-container">

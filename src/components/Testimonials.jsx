@@ -40,7 +40,7 @@ function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="testimonials-section">
+    <section id="testimonials" className="testimonials-section" data-aos="fade-up">
       <div className="testimonials-container">
         <div className="testimonials-header">
           <Reveal>

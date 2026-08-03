@@ -56,7 +56,7 @@ function Overview() {
   const cardBg = theme === 'dark' ? '#1a1a2e' : '#ffffff';
 
   return (
-    <section id="about" className="overview-section">
+    <section id="about" className="overview-section" data-aos="fade-up">
       <Reveal className="overview-content">
         <p className="section-subtitle">INTRODUCTION</p>
         <h2 className="section-title">Overview</h2>

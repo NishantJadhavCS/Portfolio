@@ -24,7 +24,7 @@ const skills = [
 
 function Skills() {
   return (
-    <section className="circle-icons" id="skills">
+    <section className="circle-icons" id="skills" data-aos="fade-up">
       <h2 className="section-title">Skills</h2>
 
       <div className="icon-grid">
