@@ -1,4 +1,5 @@
 import { Mail, MapPin, Send } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './BrandIcons';
 import './Contact.css';
 
 function Contact() {
@@ -26,13 +27,13 @@ function Contact() {
 
           <div className="contact-socials">
             <a href="https://github.com/NishantJadhavCS" target="_blank" rel="noreferrer" className="contact-social-link" aria-label="GitHub">
-              <i className="fab fa-github"></i>
+              <GithubIcon size={20} />
             </a>
             <a href="https://www.linkedin.com/in/nishant-jadhav10/" target="_blank" rel="noreferrer" className="contact-social-link" aria-label="LinkedIn">
-              <i className="fab fa-linkedin"></i>
+              <LinkedinIcon size={20} />
             </a>
             <a href="https://www.instagram.com/nishnt__10/" target="_blank" rel="noreferrer" className="contact-social-link" aria-label="Instagram">
-              <i className="fab fa-instagram"></i>
+              <InstagramIcon size={20} />
             </a>
           </div>
         </div>

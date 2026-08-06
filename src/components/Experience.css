@@ -344,9 +344,11 @@
   .exp-dot {
     width: 6px;
     height: 6px;
+    border: none;
     border-radius: 50%;
     background: var(--glass-border);
     cursor: pointer;
+    padding: 0;
     transition: all 0.3s ease;
   }
 

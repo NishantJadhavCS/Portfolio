@@ -6,8 +6,12 @@ import './Projects.css'
 const projects = [
   {
     title: 'DumplingKhang - Restaurant Landing Page',
-    image: '/images/dumplingkhang.png',
-    mobileImage: '/images/dumplingkhang-mobile.png',
+    image: '/images/dumplingkhang.webp',
+    mobileImage: '/images/dumplingkhang-mobile.webp',
+    width: 1400,
+    height: 702,
+    mobileWidth: 391,
+    mobileHeight: 766,
     alt: 'DumplingKhang landing page',
     href: 'https://www.dumplingkhang.com',
     description:
@@ -17,8 +21,12 @@ const projects = [
   },
   {
     title: 'Guyal - E-commerce Jewelry Store',
-    image: '/images/guyal-website.png',
-    mobileImage: '/images/guyal-mobile.png',
+    image: '/images/guyal-website.webp',
+    mobileImage: '/images/guyal-mobile.webp',
+    width: 1400,
+    height: 701,
+    mobileWidth: 395,
+    mobileHeight: 748,
     alt: 'Guyal e-commerce website',
     href: 'https://www.guyal.com/',
     description:
@@ -28,7 +36,9 @@ const projects = [
   },
   {
     title: 'News Summarizer',
-    image: '/images/new-summarizer.png',
+    image: '/images/new-summarizer.webp',
+    width: 734,
+    height: 355,
     alt: 'News summarizer app',
     href: 'https://github.com/NishantJadhavCS/RapidReads',
     description:
@@ -38,8 +48,12 @@ const projects = [
   },
   {
     title: 'RPious Couture - Clothing E-com Website',
-    image: '/images/rpious-website.png',
-    mobileImage: '/images/rpious-mobile.png',
+    image: '/images/rpious-website.webp',
+    mobileImage: '/images/rpious-mobile.webp',
+    width: 1400,
+    height: 664,
+    mobileWidth: 392,
+    mobileHeight: 580,
     alt: 'RPious Couture website',
     href: 'https://rpiouscouture.com/',
     description:
@@ -100,9 +114,13 @@ function Projects() {
               >
                 <div className="project-stack-card-inner">
                   <div className="project-card-visual">
-                    <img 
-                      src={isMobile && project.mobileImage ? project.mobileImage : project.image} 
-                      alt={project.alt} 
+                    <img
+                      src={isMobile && project.mobileImage ? project.mobileImage : project.image}
+                      alt={project.alt}
+                      width={isMobile && project.mobileWidth ? project.mobileWidth : project.width}
+                      height={isMobile && project.mobileHeight ? project.mobileHeight : project.height}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="project-card-text">

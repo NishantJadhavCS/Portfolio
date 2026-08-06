@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, ExternalLink, ChevronRight } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react';
 import './Experience.css';
 
 const experiences = [
@@ -60,21 +60,6 @@ function Experience() {
       }
     }
   }, [activeTab]);
-  const tabScrollRef = useRef(null);
-
-  const handleTabScroll = () => {
-    if (tabScrollRef.current) {
-      const container = tabScrollRef.current;
-      if (container.children.length === 0) return;
-      // Use actual width plus an approximation of the gap
-      const cardWidth = container.children[0].offsetWidth + 15;
-      const scrollPosition = container.scrollLeft;
-      const currentIndex = Math.round(scrollPosition / cardWidth);
-      if (currentIndex !== activeTab) {
-        setActiveTab(currentIndex);
-      }
-    }
-  };
 
   return (
     <section id="experience" className="experience-modern" data-aos="fade-up">
@@ -102,20 +87,12 @@ function Experience() {
             <div
               className="experience-tabs"
               ref={tabsRef}
-              onScroll={handleTabScroll}
             >
               {experiences.map((exp, index) => (
                 <button
                   key={index}
                   className={`tab-btn ${activeTab === index ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab(index);
-                    if (tabScrollRef.current) {
-                      const container = tabScrollRef.current;
-                      const cardWidth = container.children[0].offsetWidth + 15;
-                      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
-                    }
-                  }}
+                  onClick={() => setActiveTab(index)}
                 >
                   <div className="tab-indicator"></div>
                   <div className="tab-content">
@@ -127,10 +104,12 @@ function Experience() {
             </div>
 
             <div className="experience-dots mobile-only">
-              {experiences.map((_, index) => (
-                <span
+              {experiences.map((exp, index) => (
+                <button
                   key={index}
+                  type="button"
                   className={`exp-dot ${activeTab === index ? 'active' : ''}`}
+                  aria-label={`Show ${exp.company} experience`}
                   onClick={() => setActiveTab(index)}
                 />
               ))}

@@ -132,10 +132,12 @@ function Testimonials() {
             <div className="carousel-controls">
               <button onClick={prevSlide} className="carousel-btn"><ChevronLeft size={20} /></button>
               <div className="carousel-dots">
-                {otherTestimonials.map((_, index) => (
-                  <span 
-                    key={index} 
+                {otherTestimonials.map((item, index) => (
+                  <button
+                    key={index}
+                    type="button"
                     className={`dot ${currentSlide === index ? 'active' : ''}`}
+                    aria-label={`Go to ${item.name}'s testimonial`}
                     onClick={() => setCurrentSlide(index)}
                   />
                 ))}

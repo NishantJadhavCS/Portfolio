@@ -1,3 +1,5 @@
+import { Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './BrandIcons';
 import './Footer.css';
 
 function Footer() {
@@ -13,10 +15,10 @@ function Footer() {
             </p>
             <div className="footer-ctas">
               <a href="https://wa.me/918928755993" target="_blank" rel="noreferrer" className="footer-btn primary">
-                <i className="fa-brands fa-whatsapp"></i> Get In Touch
+                <WhatsappIcon size={18} /> Get In Touch
               </a>
               <a href="mailto:nishantjadhav.cs@gmail.com" className="footer-btn secondary">
-                <i className="fa-solid fa-envelope"></i> Email Me
+                <Mail size={18} /> Email Me
               </a>
             </div>
           </div>
@@ -26,16 +28,16 @@ function Footer() {
               <span>Follow Me</span>
               <div className="footer-social-icons">
                 <a href="https://github.com/NishantJadhavCS" target="_blank" rel="noreferrer" className="footer-social-link" aria-label="GitHub">
-                  <i className="fab fa-github"></i>
+                  <GithubIcon size={20} />
                 </a>
                 <a href="https://www.linkedin.com/in/nishant-jadhav10/" target="_blank" rel="noreferrer" className="footer-social-link" aria-label="LinkedIn">
-                  <i className="fab fa-linkedin"></i>
+                  <LinkedinIcon size={20} />
                 </a>
                 <a href="https://www.instagram.com/nishnt__10/" target="_blank" rel="noreferrer" className="footer-social-link" aria-label="Instagram">
-                  <i className="fab fa-instagram"></i>
+                  <InstagramIcon size={20} />
                 </a>
                 <a href="https://leetcode.com/u/NishantJadhavCS/" target="_blank" rel="noreferrer" className="footer-social-link" aria-label="LeetCode">
-                  <img src="/images/leetcode.png" alt="LeetCode" className="footer-social-img" />
+                  <img src="/images/leetcode.png" alt="LeetCode" className="footer-social-img" width={20} height={20} loading="lazy" decoding="async" />
                 </a>
               </div>
             </div>

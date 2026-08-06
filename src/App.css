@@ -294,7 +294,6 @@ a:hover .hero-icon {
   color: var(--text-primary);
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 255, 187, 0.25);
-  color: #0b0c2a;
   font-size: 0.85rem;
   font-weight: 700;
   opacity: 0;
@@ -419,9 +418,8 @@ a:hover .hero-icon {
 
 .tags span {
   background: var(--accent-primary);
-  color: var(--text-primary);
-  border-radius: 999px;
   color: white;
+  border-radius: 999px;
   font-size: 0.8rem;
   font-weight: bold;
   padding: 0.3rem 0.7rem;

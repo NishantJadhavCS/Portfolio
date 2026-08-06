@@ -1,10 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 import './CustomCursor.css';
 
 const CustomCursor = () => {
   const [cursorType, setCursorType] = useState('default'); // 'default', 'hover', 'project'
-  const cursorRef = useRef(null);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);

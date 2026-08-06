@@ -19,7 +19,7 @@ const skills = [
   ['CSS3', 'css.png'],
   ['Linux', 'linux.png'],
   ['Google Analytics', 'analytics.png'],
-  ['Microsoft Clarity', 'clarity.png'],
+  ['Microsoft Clarity', 'clarity.webp'],
 ]
 
 function Skills() {

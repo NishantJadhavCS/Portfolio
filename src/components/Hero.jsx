@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, ChevronDown } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import LiquidEther from './LiquidEther';
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './BrandIcons';
 import RotatingText from './RotatingText';
 import './Hero.css';
+
+const LiquidEther = lazy(() => import('./LiquidEther'));
 
 const roles = [
   'Full Stack Web Developer',
@@ -55,26 +57,35 @@ const TooltipIcon = ({ href, label, children }) => {
 
 function Hero() {
   const { theme } = useTheme();
+  const [enableLiquidEther] = useState(() => {
+    const isDesktop = window.innerWidth >= 768;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return isDesktop && !prefersReducedMotion;
+  });
 
   return (
     <section id="home" className="hero-modern">
-      <LiquidEther
-        colors={theme === 'dark' ? ['#5be3d6', '#00ffe7', '#5f5fff'] : ['#6c5ce7', '#9b59b6', '#a29bfe']}
-        mouseForce={30}
-        cursorSize={100}
-        isViscous={false}
-        viscous={30}
-        iterationsViscous={32}
-        iterationsPoisson={32}
-        resolution={0.5}
-        isBounce={false}
-        autoDemo={true}
-        autoSpeed={0.5}
-        autoIntensity={2.2}
-        takeoverDuration={0.25}
-        autoResumeDelay={3000}
-        autoRampDuration={0.6}
-      />
+      {enableLiquidEther && (
+        <Suspense fallback={null}>
+          <LiquidEther
+            colors={theme === 'dark' ? ['#5be3d6', '#00ffe7', '#5f5fff'] : ['#6c5ce7', '#9b59b6', '#a29bfe']}
+            mouseForce={30}
+            cursorSize={100}
+            isViscous={false}
+            viscous={30}
+            iterationsViscous={32}
+            iterationsPoisson={32}
+            resolution={0.5}
+            isBounce={false}
+            autoDemo={true}
+            autoSpeed={0.5}
+            autoIntensity={2.2}
+            takeoverDuration={0.25}
+            autoResumeDelay={3000}
+            autoRampDuration={0.6}
+          />
+        </Suspense>
+      )}
 
       <div className="hero-content">
         <motion.div
@@ -139,7 +150,7 @@ function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <i className="fa-brands fa-whatsapp" style={{ fontSize: '22px' }}></i> Get in Touch
+            <WhatsappIcon size={22} /> Get in Touch
           </motion.a>
 
           <motion.a
@@ -161,16 +172,16 @@ function Hero() {
           transition={{ duration: 0.8, delay: 1 }}
         >
           <TooltipIcon href="https://github.com/NishantJadhavCS" label="GitHub">
-            <i className="fab fa-github" style={{ fontSize: '24px' }}></i>
+            <GithubIcon size={24} />
           </TooltipIcon>
           <TooltipIcon href="https://www.linkedin.com/in/nishant-jadhav10/" label="LinkedIn">
-            <i className="fab fa-linkedin" style={{ fontSize: '24px' }}></i>
+            <LinkedinIcon size={24} />
           </TooltipIcon>
           <TooltipIcon href="https://www.instagram.com/nishnt__10/" label="Instagram">
-            <i className="fab fa-instagram" style={{ fontSize: '24px' }}></i>
+            <InstagramIcon size={24} />
           </TooltipIcon>
           <TooltipIcon href="https://leetcode.com/u/NishantJadhavCS/" label="LeetCode">
-            <img src="/images/leetcode.png" alt="LeetCode" className="social-img" />
+            <img src="/images/leetcode.png" alt="LeetCode" className="social-img" width={26} height={26} loading="lazy" decoding="async" />
           </TooltipIcon>
         </motion.div>
       </div>
@@ -184,7 +195,7 @@ function Hero() {
           y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
         }}
       >
-        <a href="#overview" aria-label="Scroll down">
+        <a href="#about" aria-label="Scroll down">
           <ChevronDown size={32} />
         </a>
       </motion.div>

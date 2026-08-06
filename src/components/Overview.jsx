@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Reveal from './Reveal'
 import ScrollReveal from './ScrollReveal'
 import BorderGlow from './BorderGlow'
-import { Code2, ShoppingCart, MessageSquare, BarChart3, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Code2, ShoppingCart, MessageSquare, BarChart3 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import './Overview.css'
 
@@ -37,20 +37,6 @@ const services = [
 function Overview() {
   const { theme } = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const scrollContainerRef = useRef(null);
-
-  // Auto-scrolling removed as per user request
-
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      if (container.children.length === 0) return;
-      const cardWidth = container.children[0].offsetWidth + 15;
-      const scrollPosition = container.scrollLeft;
-      const currentIndex = Math.round(scrollPosition / cardWidth);
-      setCurrentSlide(currentIndex);
-    }
-  };
 
   // Dynamic background color based on theme
   const cardBg = theme === 'dark' ? '#1a1a2e' : '#ffffff';
@@ -147,18 +133,13 @@ Open to freelance and contract opportunities in full stack development, e-commer
 
           <div className="carousel-controls" style={{ marginTop: '10px' }}>
             <div className="carousel-dots">
-              {services.map((_, index) => (
-                <span
+              {services.map((service, index) => (
+                <button
                   key={index}
+                  type="button"
                   className={`dot ${currentSlide === index ? 'active' : ''}`}
-                  onClick={() => {
-                    setCurrentSlide(index);
-                    if (scrollContainerRef.current) {
-                      const container = scrollContainerRef.current;
-                      const cardWidth = container.children[0].offsetWidth + 15;
-                      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
-                    }
-                  }}
+                  aria-label={`Go to ${service.title} slide`}
+                  onClick={() => setCurrentSlide(index)}
                 />
               ))}
             </div>
