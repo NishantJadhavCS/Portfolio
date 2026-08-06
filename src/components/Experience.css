@@ -83,7 +83,7 @@
   border-radius: 16px;
   cursor: pointer;
   text-align: left;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   width: 100%;
 }
@@ -101,14 +101,9 @@
 
 .tab-indicator {
   width: 4px;
-  height: 0;
+  height: 40px;
   background: var(--gradient-primary);
   border-radius: 99px;
-  transition: height 0.3s ease;
-}
-
-.tab-btn.active .tab-indicator {
-  height: 40px;
 }
 
 .tab-content {
@@ -143,6 +138,12 @@
   position: relative;
   min-width: 0;
   width: 100%;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.experience-details:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 0 40px var(--shadow-glow);
 }
 
 .details-card {
@@ -252,14 +253,15 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  transition: all 0.3s ease;
+  cursor: default;
+  display: inline-block;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .tech-tag:hover {
   background: rgba(0, 255, 231, 0.05);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
-  transform: translateY(-2px);
 }
 
 /* Light Theme Overrides */

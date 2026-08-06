@@ -42,6 +42,26 @@ const experiences = [
   }
 ];
 
+const staggerContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const fadeUpItem = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+};
+
+const staggerTags = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05 } },
+};
+
+const popItem = {
+  hidden: { opacity: 0, scale: 0.8 },
+  show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 18 } },
+};
+
 function Experience() {
   const [activeTab, setActiveTab] = useState(0);
   const tabsRef = useRef(null);
@@ -89,17 +109,29 @@ function Experience() {
               ref={tabsRef}
             >
               {experiences.map((exp, index) => (
-                <button
+                <motion.button
                   key={index}
                   className={`tab-btn ${activeTab === index ? 'active' : ''}`}
                   onClick={() => setActiveTab(index)}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  <div className="tab-indicator"></div>
+                  {activeTab === index && (
+                    <motion.div
+                      className="tab-indicator"
+                      layoutId="activeTabIndicator"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
                   <div className="tab-content">
                     <span className="tab-company">{exp.company}</span>
                     <span className="tab-role">{exp.role}</span>
                   </div>
-                </button>
+                </motion.button>
               ))}
             </div>
 
@@ -121,17 +153,17 @@ function Experience() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, x: 30, scale: 0.98 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -30, scale: 0.98 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="details-card"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 onDragEnd={(e, { offset, velocity }) => {
                   const isLeftSwipe = offset.x < -50 || velocity.x < -300;
                   const isRightSwipe = offset.x > 50 || velocity.x > 300;
-                  
+
                   if (isLeftSwipe && activeTab < experiences.length - 1) {
                     setActiveTab((prev) => prev + 1);
                   } else if (isRightSwipe && activeTab > 0) {
@@ -139,52 +171,55 @@ function Experience() {
                   }
                 }}
               >
-                <div className="card-header">
-                  <div className="header-main">
-                    <h3>{experiences[activeTab].role}</h3>
-                    <div className="company-info">
-                      <Briefcase size={16} />
-                      <span>{experiences[activeTab].company}</span>
+                <motion.div initial="hidden" animate="show" variants={staggerContainer}>
+                  <motion.div className="card-header" variants={fadeUpItem}>
+                    <div className="header-main">
+                      <h3>{experiences[activeTab].role}</h3>
+                      <div className="company-info">
+                        <Briefcase size={16} />
+                        <span>{experiences[activeTab].company}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="header-meta">
-                    <div className="meta-item">
-                      <Calendar size={14} />
-                      <span>{experiences[activeTab].duration}</span>
-                    </div>
-                    <div className="meta-item">
-                      <MapPin size={14} />
-                      <span>{experiences[activeTab].location}</span>
-                    </div>
-                  </div>
-                </div>
+                    <motion.div className="header-meta" variants={staggerTags}>
+                      <motion.div className="meta-item" variants={popItem} whileHover={{ y: -2, scale: 1.05 }}>
+                        <Calendar size={14} />
+                        <span>{experiences[activeTab].duration}</span>
+                      </motion.div>
+                      <motion.div className="meta-item" variants={popItem} whileHover={{ y: -2, scale: 1.05 }}>
+                        <MapPin size={14} />
+                        <span>{experiences[activeTab].location}</span>
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
 
-                <div className="card-body">
-                  <ul className="points-list">
-                    {experiences[activeTab].points.map((point, idx) => (
-                      <motion.li
-                        key={idx}
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * idx }}
-                      >
-                        <ChevronRight size={18} className="point-icon" />
-                        <span>{point}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-
-                  <div className="tech-footer">
-                    <span className="tech-label">Technologies Used:</span>
-                    <div className="tech-grid">
-                      {experiences[activeTab].tech.map((tech, idx) => (
-                        <span key={idx} className="tech-tag">
-                          {tech}
-                        </span>
+                  <div className="card-body">
+                    <ul className="points-list">
+                      {experiences[activeTab].points.map((point, idx) => (
+                        <motion.li key={idx} variants={fadeUpItem}>
+                          <ChevronRight size={18} className="point-icon" />
+                          <span>{point}</span>
+                        </motion.li>
                       ))}
-                    </div>
+                    </ul>
+
+                    <motion.div className="tech-footer" variants={fadeUpItem}>
+                      <span className="tech-label">Technologies Used:</span>
+                      <motion.div className="tech-grid" variants={staggerTags}>
+                        {experiences[activeTab].tech.map((tech, idx) => (
+                          <motion.span
+                            key={idx}
+                            className="tech-tag"
+                            variants={popItem}
+                            whileHover={{ y: -3, scale: 1.06 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            {tech}
+                          </motion.span>
+                        ))}
+                      </motion.div>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             </AnimatePresence>
           </div>

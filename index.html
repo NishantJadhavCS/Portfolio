@@ -58,8 +58,134 @@
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
+
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        background: #080814;
+        transition: opacity 0.5s ease;
+      }
+      #preloader.preloader-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .preloader-ring-wrap {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .preloader-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3px solid rgba(91, 227, 214, 0.15);
+        border-top-color: #5be3d6;
+        border-right-color: #5f5fff;
+        animation: preloader-spin 1s linear infinite;
+      }
+      .preloader-logo {
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 0 10px rgba(0, 255, 231, 0.5));
+      }
+      .preloader-percentage {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #00ffe7 0%, #5f5fff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+        min-width: 3.5ch;
+        text-align: center;
+      }
+      .preloader-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #a0a0b8;
+      }
+      @keyframes preloader-spin {
+        to { transform: rotate(360deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .preloader-ring { animation: none; }
+      }
+    </style>
   </head>
   <body>
+    <div id="preloader" aria-hidden="true">
+      <div class="preloader-ring-wrap">
+        <div class="preloader-ring"></div>
+        <img class="preloader-logo" src="/images/navbar-logo.svg" alt="" />
+      </div>
+      <div class="preloader-percentage" id="preloader-percentage">0%</div>
+      <div class="preloader-label">Loading Portfolio</div>
+    </div>
+    <script>
+      (function () {
+        var el = document.getElementById('preloader');
+        var pctEl = document.getElementById('preloader-percentage');
+        if (!el || !pctEl) return;
+
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+
+        var start = Date.now();
+        var pct = 0;
+        var loaded = false;
+        var hidden = false;
+
+        function ease(t) { return 1 - Math.pow(1 - t, 3); }
+
+        function finish() {
+          if (hidden) return;
+          hidden = true;
+          el.classList.add('preloader-hidden');
+          document.body.style.overflow = previousOverflow;
+          setTimeout(function () {
+            el.style.display = 'none';
+          }, 550);
+        }
+
+        function tick() {
+          if (hidden) return;
+          var elapsed = Date.now() - start;
+          var duration = reduceMotion ? 400 : 1400;
+          var target = loaded ? 100 : Math.min(90, ease(Math.min(elapsed / duration, 1)) * 90);
+          pct += (target - pct) * (loaded ? 0.2 : 0.09);
+          if (loaded && target - pct < 0.5) pct = 100;
+          pctEl.textContent = Math.round(pct) + '%';
+          if (pct >= 100) {
+            finish();
+            return;
+          }
+          requestAnimationFrame(tick);
+        }
+
+        window.addEventListener('load', function () {
+          loaded = true;
+        });
+
+        // Safety net so the loader can never get stuck if 'load' misfires.
+        setTimeout(function () { loaded = true; }, 6000);
+
+        requestAnimationFrame(tick);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

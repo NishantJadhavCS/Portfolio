@@ -2,44 +2,43 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Reveal from './Reveal'
 import ScrollReveal from './ScrollReveal'
-import BorderGlow from './BorderGlow'
+import HoverCard from './HoverCard'
 import { Code2, ShoppingCart, MessageSquare, BarChart3 } from 'lucide-react'
-import { useTheme } from '../context/ThemeContext'
 import './Overview.css'
 
 const services = [
   {
     title: 'Full Stack Development',
+    description: 'End-to-end web apps with React, Django, and modern APIs.',
     icon: <Code2 size={40} />,
-    glowColor: '180 100 70', // Cyan-ish
-    colors: ['#5be3d6', '#5f5fff', '#00ffe7']
+    accentSolid: '#2dd4bf',
+    accentSoft: 'rgba(45, 212, 191, 0.35)',
   },
   {
     title: 'E-Commerce Solutions',
+    description: 'Custom Shopify storefronts, automations, and conversion-focused UX.',
     icon: <ShoppingCart size={40} />,
-    glowColor: '170 100 60', // Teal-ish
-    colors: ['#00ffe7', '#5be3d6', '#38bdf8']
+    accentSolid: '#38bdf8',
+    accentSoft: 'rgba(56, 189, 248, 0.35)',
   },
   {
     title: 'Freelance Consulting',
+    description: 'Flexible collaboration for startups and growing businesses.',
     icon: <MessageSquare size={40} />,
-    glowColor: '240 100 70', // Blue-ish
-    colors: ['#5f5fff', '#c084fc', '#38bdf8']
+    accentSolid: '#c084fc',
+    accentSoft: 'rgba(192, 132, 252, 0.35)',
   },
   {
     title: 'Analytics & SEO',
+    description: 'Data-driven insights and search visibility that drive growth.',
     icon: <BarChart3 size={40} />,
-    glowColor: '180 100 70', // Cyan-ish
-    colors: ['#5be3d6', '#00ffe7', '#5f5fff']
+    accentSolid: '#f472b6',
+    accentSoft: 'rgba(244, 114, 182, 0.35)',
   },
 ]
 
 function Overview() {
-  const { theme } = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Dynamic background color based on theme
-  const cardBg = theme === 'dark' ? '#1a1a2e' : '#ffffff';
 
   return (
     <section id="about" className="overview-section" data-aos="fade-up">
@@ -66,23 +65,13 @@ Open to freelance and contract opportunities in full stack development, e-commer
         <div className="overview-cards desktop-only">
           {services.map((service, index) => (
             <Reveal key={index} delay={index * 0.1}>
-              <BorderGlow
-                className="overview-card-glow"
-                glowColor={service.glowColor}
-                backgroundColor={cardBg}
-                colors={service.colors}
-                borderRadius={24}
-                glowRadius={50}
-                glowIntensity={1.2}
-                animated={true}
-              >
-                <div className="overview-card-content" style={{ padding: '2.5rem' }}>
-                  <div className="overview-card-icon">
-                    {service.icon}
-                  </div>
-                  <h3>{service.title}</h3>
-                </div>
-              </BorderGlow>
+              <HoverCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                accentSolid={service.accentSolid}
+                accentSoft={service.accentSoft}
+              />
             </Reveal>
           ))}
         </div>
@@ -109,23 +98,13 @@ Open to freelance and contract opportunities in full stack development, e-commer
             >
               {services.map((service, index) => (
                 <div key={index} className="mobile-card-wrapper">
-                  <BorderGlow
-                    className="overview-card-glow"
-                    glowColor={service.glowColor}
-                    backgroundColor={cardBg}
-                    colors={service.colors}
-                    borderRadius={24}
-                    glowRadius={50}
-                    glowIntensity={1.2}
-                    animated={true}
-                  >
-                    <div className="overview-card-content" style={{ padding: '2.5rem' }}>
-                      <div className="overview-card-icon">
-                        {service.icon}
-                      </div>
-                      <h3>{service.title}</h3>
-                    </div>
-                  </BorderGlow>
+                  <HoverCard
+                    icon={service.icon}
+                    title={service.title}
+                    description={service.description}
+                    accentSolid={service.accentSolid}
+                accentSoft={service.accentSoft}
+                  />
                 </div>
               ))}
             </motion.div>

@@ -1,0 +1,73 @@
+.hover-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  cursor: pointer;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  will-change: transform;
+}
+
+.hover-card:hover {
+  border-color: var(--card-accent-solid);
+}
+
+[data-theme='light'] .hover-card {
+  background: var(--bg-card-alt);
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+.hover-card-spotlight {
+  background: radial-gradient(circle 220px at var(--spot-x, 50%) var(--spot-y, 50%), var(--card-accent) 0%, transparent 75%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+[data-theme='light'] .hover-card-spotlight {
+  mix-blend-mode: multiply;
+}
+
+.hover-card-sheen {
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.16) 50%, transparent 65%);
+  inset: -20%;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+  z-index: 0;
+}
+
+[data-theme='light'] .hover-card-sheen {
+  background: linear-gradient(115deg, transparent 35%, rgba(15, 23, 42, 0.06) 50%, transparent 65%);
+}
+
+.hover-card:hover .hover-card-sheen {
+  transform: translateX(120%);
+}
+
+.hover-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hover-card-description {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-card-sheen {
+    transition: none;
+  }
+}
