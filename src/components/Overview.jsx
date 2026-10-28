@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Reveal from './Reveal'
+import SectionHeader from './SectionHeader'
 import ScrollReveal from './ScrollReveal'
 import HoverCard from './HoverCard'
 import { Code2, ShoppingCart, MessageSquare, BarChart3 } from 'lucide-react'
@@ -42,17 +43,14 @@ function Overview() {
 
   return (
     <section id="about" className="overview-section">
-      <Reveal className="overview-content">
-        <p className="section-subtitle">INTRODUCTION</p>
-        <h2 className="section-title">Overview</h2>
-      </Reveal>
+      <SectionHeader eyebrow="Introduction" title="About" highlight="Me" />
 
       <ScrollReveal
         baseOpacity={0}
         enableBlur={true}
         baseRotation={5}
         blurStrength={10}
-        containerClassName="section-description"
+        containerClassName="overview-description"
       >
         {`I'm a Full Stack Developer at A&I Inc. USA, building scalable web applications, Shopify integrations, internal tools, and modern e-commerce solutions.
 

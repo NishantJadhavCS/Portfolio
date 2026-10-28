@@ -1,5 +1,6 @@
 import Reveal from './Reveal'
 import TiltedCard from './TiltedCard'
+import SectionHeader from './SectionHeader'
 
 const skills = [
   ['React', 'react.png'],
@@ -25,7 +26,7 @@ const skills = [
 function Skills() {
   return (
     <section className="circle-icons" id="skills">
-      <h2 className="section-title">Skills</h2>
+      <SectionHeader eyebrow="Toolkit" title="Skills &" highlight="Tools" />
 
       <div className="icon-grid">
         {skills.map(([name, image]) => (

@@ -1,6 +1,7 @@
 import { Mail, MapPin, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from './BrandIcons';
 import Reveal from './Reveal';
+import SectionHeader from './SectionHeader';
 import './Contact.css';
 
 function Contact() {
@@ -9,11 +10,15 @@ function Contact() {
       <Reveal className="contact-container">
         {/* Left Side: Info */}
         <div className="contact-info">
-          <h2>Let's Talk</h2>
-          <p>
-            Have a project in mind or just want to chat? Feel free to reach out. 
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-          </p>
+          <SectionHeader
+            eyebrow="Get in Touch"
+            title="Let's"
+            highlight="Talk"
+            description="Have a project in mind or just want to chat? Feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision."
+            align="left"
+            reveal={false}
+            className="contact-header"
+          />
           
           <div className="contact-details">
             <div className="detail-item">

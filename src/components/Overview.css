@@ -6,30 +6,8 @@
   scroll-margin-top: 100px;
 }
 
-.overview-content {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.section-subtitle {
-  color: var(--accent-primary);
-  letter-spacing: 2px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-.section-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 40px;
-}
-
-.section-description {
+.overview-description {
   max-width: 900px;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
   margin: 0 auto 60px;
   text-align: center;
 }
@@ -82,16 +60,9 @@
     padding: 80px 20px 60px;
   }
 
-  .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 25px;
-  }
-
-  .section-description {
-    font-size: 1rem;
+  .overview-description {
     margin-bottom: 40px;
     padding: 0 10px;
-    line-height: 1.6;
   }
 
   .desktop-only {
@@ -168,10 +139,6 @@
 @media (max-width: 480px) {
   .overview-section {
     padding: 60px 15px 40px;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
   }
 
   .overview-card-content {

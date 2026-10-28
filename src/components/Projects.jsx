@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Reveal from './Reveal'
 import ScrollStack, { ScrollStackItem } from './ScrollStack'
+import SectionHeader from './SectionHeader'
 import './Projects.css'
 
 const projects = [
@@ -82,14 +82,12 @@ function Projects() {
         <span className="bg-text right">Works</span>
       </div>
 
-      <div className="projects-header">
-        <Reveal>
-          <h2 className="section-title">Projects</h2>
-          <p className="section-description">
-            A showcase of selected projects highlighting my skills in web development and design.
-          </p>
-        </Reveal>
-      </div>
+      <SectionHeader
+        eyebrow="Selected Work"
+        title="Featured"
+        highlight="Projects"
+        description="A showcase of selected projects highlighting my skills in web development and design."
+      />
 
       <div className="projects-stack-wrapper">
         <ScrollStack

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react';
+import SectionHeader from './SectionHeader';
 import './Experience.css';
 
 const experiences = [
@@ -86,20 +87,12 @@ function Experience() {
       <div className="experience-bg-glow"></div>
 
       <div className="experience-container">
-        <div className="experience-header">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="section-badge">Career Path</span>
-            <h2 className="section-title">Work Experience</h2>
-            <p className="section-intro">
-              Experience across full stack development, Shopify ecosystems, cloud infrastructure, and scalable web solutions.
-            </p>
-          </motion.div>
-        </div>
+        <SectionHeader
+          eyebrow="Career Path"
+          title="Work"
+          highlight="Experience"
+          description="Experience across full stack development, Shopify ecosystems, cloud infrastructure, and scalable web solutions."
+        />
 
         <div className="experience-content-wrapper">
           {/* Tabs Navigation */}

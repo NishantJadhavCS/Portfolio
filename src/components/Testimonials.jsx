@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from './Reveal';
+import SectionHeader from './SectionHeader';
 import './Testimonials.css';
 
 const featuredTestimonial = {
@@ -42,15 +43,12 @@ function Testimonials() {
   return (
     <section id="testimonials" className="testimonials-section">
       <div className="testimonials-container">
-        <div className="testimonials-header">
-          <Reveal>
-            <span className="section-badge-modern">IN THEIR WORDS</span>
-            <h2 className="section-title-modern">Voices of <span className="highlight">Success</span></h2>
-            <p className="section-description-modern">
-              Hear from the founders, clients, and teammates I've collaborated with to build impactful digital solutions.
-            </p>
-          </Reveal>
-        </div>
+        <SectionHeader
+          eyebrow="In Their Words"
+          title="Voices of"
+          highlight="Success"
+          description="Hear from the founders, clients, and teammates I've collaborated with to build impactful digital solutions."
+        />
 
         {/* Featured Card */}
         <div className="featured-card-wrapper">

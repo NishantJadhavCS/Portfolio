@@ -32,18 +32,6 @@
   white-space: nowrap;
 }
 
-.projects-header {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-  text-align: center;
-}
-
-.projects-header .section-title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  margin-bottom: 20px;
-}
-
 .projects-stack-wrapper {
   position: relative;
   z-index: 1;
