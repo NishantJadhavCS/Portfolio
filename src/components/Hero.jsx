@@ -154,10 +154,8 @@ function Hero() {
           </motion.a>
 
           <motion.a
-            href="https://drive.google.com/file/d/1PgAFWFaIV4r7Ol1Y5rPA_Zg7LOsPQZb2/view?usp=sharing"
+            href="/resume/"
             className="hero-btn hero-btn-secondary"
-            target="_blank"
-            rel="noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

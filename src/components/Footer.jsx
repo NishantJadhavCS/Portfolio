@@ -34,11 +34,7 @@ const quickLinks = [
   { href: '#about', label: 'About' },
   { href: '#Projects', label: 'Projects' },
   { href: '#skills', label: 'Skills' },
-  {
-    href: 'https://drive.google.com/file/d/1PgAFWFaIV4r7Ol1Y5rPA_Zg7LOsPQZb2/view?usp=sharing',
-    label: 'Resume',
-    external: true,
-  },
+  { href: '/resume/', label: 'Resume' },
 ];
 
 function Footer() {

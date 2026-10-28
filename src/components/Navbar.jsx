@@ -10,6 +10,7 @@ const navItems = [
   { href: '#skills', label: 'Skills' },
   { href: '#Projects', label: 'Projects' },
   { href: '#contact', label: 'Contact' },
+  { href: '/resume/', label: 'Resume' },
 ];
 
 function Navbar() {
@@ -125,6 +126,7 @@ function Navbar() {
                   <a 
                     href={item.href} 
                     onClick={(e) => {
+                      if (!item.href.startsWith('#')) return;
                       e.preventDefault();
                       setIsOpen(false);
                       const targetId = item.href.substring(1);
