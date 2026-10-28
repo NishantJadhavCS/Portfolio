@@ -82,7 +82,7 @@ function Experience() {
   }, [activeTab]);
 
   return (
-    <section id="experience" className="experience-modern" data-aos="fade-up">
+    <section id="experience" className="experience-modern">
       <div className="experience-bg-glow"></div>
 
       <div className="experience-container">

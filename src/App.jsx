@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Overview from './components/Overview'
@@ -15,29 +13,23 @@ import CustomCursor from './components/CustomCursor'
 import './App.css'
 
 function App() {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: 'ease-out-cubic',
-    });
-  }, []);
   return (
-    <ThemeProvider>
-      <CustomCursor />
-      <Navbar />
-      <main>
-        <Hero />
-        <Overview />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <ThemeProvider>
+        <CustomCursor />
+        <Navbar />
+        <main>
+          <Hero />
+          <Overview />
+          <Experience />
+          <Skills />
+          <Projects />
+          <Testimonials />
+          <Contact />
+        </main>
+        <Footer />
+      </ThemeProvider>
+    </MotionConfig>
   )
 }
 

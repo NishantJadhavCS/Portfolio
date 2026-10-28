@@ -1,11 +1,12 @@
 import { Mail, MapPin, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from './BrandIcons';
+import Reveal from './Reveal';
 import './Contact.css';
 
 function Contact() {
   return (
-    <section id="contact" className="contact-section" data-aos="fade-up">
-      <div className="contact-container">
+    <section id="contact" className="contact-section">
+      <Reveal className="contact-container">
         {/* Left Side: Info */}
         <div className="contact-info">
           <h2>Let's Talk</h2>
@@ -88,7 +89,7 @@ function Contact() {
             </button>
           </form>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -426,19 +426,6 @@ a:hover .hero-icon {
 }
 
 
-.reveal {
-  filter: blur(5px);
-  opacity: 0;
-  transform: translateY(34px) scale(0.98);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
-}
-
-.reveal.visible {
-  filter: blur(0);
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
 @keyframes gradientMove {
   0% {
     background-position: 0% 50%;

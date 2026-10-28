@@ -1,120 +1,81 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useMemo, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 import './ScrollReveal.css'
 
-gsap.registerPlugin(ScrollTrigger)
+// Each word fades/unblurs over its own slice of the scroll range; slices overlap like a GSAP stagger.
+const STAGGER = 0.05
+
+function Word({ progress, index, count, baseOpacity, enableBlur, blurStrength, children }) {
+  const total = 1 + STAGGER * (count - 1)
+  const start = (index * STAGGER) / total
+  const end = (index * STAGGER + 1) / total
+
+  const opacity = useTransform(progress, [start, end], [baseOpacity, 1])
+  const blur = useTransform(progress, [start, end], [blurStrength, 0])
+  const filter = useTransform(blur, (value) => `blur(${value}px)`)
+
+  return (
+    <motion.span className="word" style={{ opacity, filter: enableBlur ? filter : undefined }}>
+      {children}
+    </motion.span>
+  )
+}
 
 function ScrollReveal({
   children,
-  scrollContainerRef,
   enableBlur = true,
   baseOpacity = 0.1,
   baseRotation = 3,
   blurStrength = 4,
   containerClassName = '',
   textClassName = '',
-  rotationEnd = 'bottom bottom',
-  wordAnimationEnd = 'bottom bottom',
 }) {
   const containerRef = useRef(null)
 
-  const splitText = useMemo(() => {
+  const { scrollYProgress: rotationProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end end'],
+  })
+  const { scrollYProgress: wordProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 0.8', 'end end'],
+  })
+  const rotate = useTransform(rotationProgress, [0, 1], [baseRotation, 0])
+
+  const tokens = useMemo(() => {
     const text = typeof children === 'string' ? children : ''
-
-    return text.split(/(\s+)/).map((word, index) => {
-      if (word.match(/^\s+$/)) return word
-
-      return (
-        <span className="word" key={index}>
-          {word}
-        </span>
-      )
-    })
+    return text.split(/(\s+)/)
   }, [children])
 
-  useEffect(() => {
-    const element = containerRef.current
-    if (!element) return undefined
-
-    const scroller = scrollContainerRef?.current ?? window
-    const triggers = []
-
-    const rotationTween = gsap.fromTo(
-      element,
-      { transformOrigin: '0% 50%', rotate: baseRotation },
-      {
-        ease: 'none',
-        rotate: 0,
-        scrollTrigger: {
-          trigger: element,
-          scroller,
-          start: 'top bottom',
-          end: rotationEnd,
-          scrub: true,
-        },
-      },
-    )
-
-    if (rotationTween.scrollTrigger) triggers.push(rotationTween.scrollTrigger)
-
-    const wordElements = element.querySelectorAll('.word')
-
-    const opacityTween = gsap.fromTo(
-      wordElements,
-      { opacity: baseOpacity, willChange: 'opacity' },
-      {
-        ease: 'none',
-        opacity: 1,
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: element,
-          scroller,
-          start: 'top bottom-=20%',
-          end: wordAnimationEnd,
-          scrub: true,
-        },
-      },
-    )
-
-    if (opacityTween.scrollTrigger) triggers.push(opacityTween.scrollTrigger)
-
-    let blurTween
-
-    if (enableBlur) {
-      blurTween = gsap.fromTo(
-        wordElements,
-        { filter: `blur(${blurStrength}px)` },
-        {
-          ease: 'none',
-          filter: 'blur(0px)',
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: element,
-            scroller,
-            start: 'top bottom-=20%',
-            end: wordAnimationEnd,
-            scrub: true,
-          },
-        },
-      )
-
-      if (blurTween.scrollTrigger) triggers.push(blurTween.scrollTrigger)
-    }
-
-    return () => {
-      rotationTween.kill()
-      opacityTween.kill()
-      blurTween?.kill()
-      triggers.forEach((trigger) => trigger.kill())
-    }
-  }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, rotationEnd, wordAnimationEnd, blurStrength])
+  const wordCount = tokens.filter((token) => !/^\s+$/.test(token)).length
+  let wordIndex = 0
 
   return (
-    <div ref={containerRef} className={`scroll-reveal ${containerClassName}`.trim()}>
-      <p className={`scroll-reveal-text ${textClassName}`.trim()}>{splitText}</p>
-    </div>
+    <motion.div
+      ref={containerRef}
+      className={`scroll-reveal ${containerClassName}`.trim()}
+      style={{ rotate, transformOrigin: '0% 50%' }}
+    >
+      <p className={`scroll-reveal-text ${textClassName}`.trim()}>
+        {tokens.map((token, index) => {
+          if (/^\s+$/.test(token)) return token
+          return (
+            <Word
+              key={index}
+              progress={wordProgress}
+              index={wordIndex++}
+              count={wordCount}
+              baseOpacity={baseOpacity}
+              enableBlur={enableBlur}
+              blurStrength={blurStrength}
+            >
+              {token}
+            </Word>
+          )
+        })}
+      </p>
+    </motion.div>
   )
 }
 

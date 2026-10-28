@@ -41,7 +41,7 @@ function Overview() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <section id="about" className="overview-section" data-aos="fade-up">
+    <section id="about" className="overview-section">
       <Reveal className="overview-content">
         <p className="section-subtitle">INTRODUCTION</p>
         <h2 className="section-title">Overview</h2>

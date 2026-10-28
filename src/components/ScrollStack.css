@@ -1,30 +1,23 @@
-.scroll-stack-scroller {
+.scroll-stack {
   position: relative;
   width: 100%;
-  height: auto;
-  overflow: visible;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: scroll-position;
+  padding: 0 1rem;
 }
 
-.scroll-stack-inner {
-  padding: 0 1rem 40rem;
-  min-height: 100vh;
+.scroll-stack-tail {
+  height: 20vh;
 }
 
-.scroll-stack-card-wrapper {
-  position: relative;
+.scroll-stack-slot {
+  position: sticky;
+}
+
+.scroll-stack-scale {
+  transform-origin: top center;
+  will-change: transform;
 }
 
 .scroll-stack-card {
-  transform-origin: top center;
-  will-change: transform, filter;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   /* CRITICAL: Enforce card height to fit viewport */
   height: 82vh;
@@ -32,7 +25,7 @@
   min-height: 500px;
   width: 100%;
   max-width: 1100px;
-  margin: 100px auto;
+  margin: 0 auto;
   padding: 0;
   border-radius: 30px;
   box-sizing: border-box;
@@ -44,20 +37,19 @@
   flex-direction: column;
 }
 
-.scroll-stack-end {
-  width: 100%;
-}
-
 @media (max-width: 768px) {
-  .scroll-stack-inner {
-    padding: 2vh 0.5rem 30rem;
+  .scroll-stack {
+    padding: 2vh 0.5rem 0;
+  }
+
+  .scroll-stack-tail {
+    height: 15vh;
   }
 
   .scroll-stack-card {
     height: 75vh;
     min-height: 480px;
     max-height: 700px;
-    margin: 60px auto;
   }
 }
 
