@@ -11,7 +11,7 @@ const experiences = [
     duration: 'Jul 2025 — Present',
     location: 'USA / Remote',
     points: [
-      'Developing a custom Shopify application for personalized jewelry dropshipping and e-commerce automation.',
+      'Built and launched Juler, a public Shopify App Store app for personalized jewelry dropshipping and e-commerce automation.',
       'Built React frontend integrated with Django backend APIs using a scalable architecture.',
       'Implemented JWT authentication and managed AWS deployments with Docker and GitHub Actions.'
     ],

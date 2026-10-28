@@ -5,21 +5,6 @@ import './Projects.css'
 
 const projects = [
   {
-    title: 'DumplingKhang - Restaurant Landing Page',
-    image: '/images/dumplingkhang.webp',
-    mobileImage: '/images/dumplingkhang-mobile.webp',
-    width: 1400,
-    height: 702,
-    mobileWidth: 391,
-    mobileHeight: 766,
-    alt: 'DumplingKhang landing page',
-    href: 'https://www.dumplingkhang.com',
-    description:
-      'A fully responsive static website built for a restaurant. Features include smooth scroll navigation, menu highlights, and WhatsApp ordering integration.',
-    tags: ['#html', '#css', '#javascript', '#responsive-design'],
-    color: 'rgba(91, 227, 214, 0.1)'
-  },
-  {
     title: 'Guyal - E-commerce Jewelry Store',
     image: '/images/guyal-website.webp',
     mobileImage: '/images/guyal-mobile.webp',
@@ -35,16 +20,34 @@ const projects = [
     color: 'rgba(95, 95, 255, 0.1)'
   },
   {
-    title: 'News Summarizer',
-    image: '/images/new-summarizer.webp',
-    width: 734,
-    height: 355,
-    alt: 'News summarizer app',
-    href: 'https://github.com/NishantJadhavCS/RapidReads',
+    title: 'Juler - Shopify Dropshipping App',
+    image: '/images/juler-website.webp',
+    mobileImage: '/images/juler-mobile.webp',
+    width: 1400,
+    height: 711,
+    mobileWidth: 327,
+    mobileHeight: 694,
+    alt: 'Juler app listing on the Shopify App Store',
+    href: 'https://apps.shopify.com/juler',
     description:
-      'Developed a web application that fetches news articles using APIs, parses content, and generates concise summaries with Python.',
-    tags: ['#python', '#django', '#bootstrap', '#api-integration'],
+      'Public Shopify App Store app built at A&I Inc. that lets merchants launch a customizable jewelry brand with zero inventory. React frontend on Django APIs, with product personalization, conditional pricing, and automated drop-shipping fulfillment.',
+    tags: ['#react', '#django', '#shopify-api', '#liquid', '#docker', '#aws', '#github-actions'],
     color: 'rgba(0, 255, 231, 0.1)'
+  },
+  {
+    title: 'DumplingKhang - Restaurant Landing Page',
+    image: '/images/dumplingkhang.webp',
+    mobileImage: '/images/dumplingkhang-mobile.webp',
+    width: 1400,
+    height: 702,
+    mobileWidth: 391,
+    mobileHeight: 766,
+    alt: 'DumplingKhang landing page',
+    href: 'https://www.dumplingkhang.com',
+    description:
+      'A fully responsive static website built for a restaurant. Features include smooth scroll navigation, menu highlights, and WhatsApp ordering integration.',
+    tags: ['#html', '#css', '#javascript', '#responsive-design'],
+    color: 'rgba(91, 227, 214, 0.1)'
   },
   {
     title: 'RPious Couture - Clothing E-com Website',

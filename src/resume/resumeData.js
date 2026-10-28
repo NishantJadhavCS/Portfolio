@@ -15,7 +15,7 @@ export const profile = {
   linkedin: 'linkedin.com/in/nishant-jadhav10',
   linkedinHref: 'https://www.linkedin.com/in/nishant-jadhav10/',
   summary:
-    'Full Stack Developer with 2+ years of professional experience building e-commerce platforms, custom Shopify applications, and performance-focused websites. Currently building a React + Django Shopify app for jewelry dropshipping at A&I Inc. (USA), with production work across Shopify/Liquid, AWS, and Docker. Combines engineering with analytics and SEO to ship features that measurably improve engagement and conversions.',
+    'Full Stack Developer with 2+ years of professional experience building e-commerce platforms, custom Shopify applications, and performance-focused websites. Built and launched Juler, a React + Django app on the Shopify App Store, at A&I Inc. (USA), with production work across Shopify/Liquid, AWS, and Docker. Combines engineering with analytics and SEO to ship features that measurably improve engagement and conversions.',
 };
 
 export const experience = [
@@ -24,7 +24,7 @@ export const experience = [
     location: 'USA · Remote',
     roles: [{ title: 'Full Stack Developer', duration: 'Jul 2025 – Present' }],
     points: [
-      'Building a custom Shopify application for personalized jewelry dropshipping and e-commerce automation.',
+      'Built and launched Juler, a public Shopify App Store app for made-to-order jewelry dropshipping.',
       'Developed the React frontend on top of Django REST APIs with a modular, scalable architecture.',
       'Implemented JWT authentication and own deployments on AWS using Docker and GitHub Actions CI/CD.',
     ],
@@ -67,12 +67,12 @@ export const projects = [
     tech: 'Shopify · Liquid · JavaScript · Analytics',
   },
   {
-    name: 'RPious Couture: Fashion Storefront',
-    href: 'https://rpiouscouture.com/',
-    linkLabel: 'rpiouscouture.com',
+    name: 'Juler: Shopify Dropshipping App',
+    href: 'https://apps.shopify.com/juler',
+    linkLabel: 'Shopify App Store',
     description:
-      "Custom Shopify theme for a women's ethnic fashion brand, focused on a premium, mobile-first shopping experience.",
-    tech: 'Shopify · Liquid · JavaScript',
+      'Shopify app for launching a custom jewelry brand with zero inventory and automated fulfillment.',
+    tech: 'React · Django · Shopify APIs · Docker · AWS',
   },
   {
     name: 'DumplingKhang: Restaurant Website',
@@ -83,12 +83,12 @@ export const projects = [
     tech: 'HTML · CSS · JavaScript',
   },
   {
-    name: 'RapidReads: News Summarizer',
-    href: 'https://github.com/NishantJadhavCS/RapidReads',
-    linkLabel: 'GitHub',
+    name: 'RPious Couture: Fashion Storefront',
+    href: 'https://rpiouscouture.com/',
+    linkLabel: 'rpiouscouture.com',
     description:
-      'Django app that fetches articles from news APIs, parses the content, and generates concise summaries in Python.',
-    tech: 'Python · Django · Bootstrap · REST APIs',
+      "Custom Shopify theme for a women's ethnic fashion brand, focused on a premium, mobile-first shopping experience.",
+    tech: 'Shopify · Liquid · JavaScript',
   },
 ];
 
