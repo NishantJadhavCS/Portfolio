@@ -24,7 +24,10 @@
   --shadow-primary: rgba(0, 0, 0, 0.3);
   --shadow-glow: rgba(0, 255, 231, 0.3);
 
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  font-family: var(--font-body);
   color: var(--text-primary);
   background: var(--bg-primary);
   font-synthesis: none;
@@ -92,6 +95,14 @@ button,
 input,
 textarea {
   font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
 img {

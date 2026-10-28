@@ -144,6 +144,12 @@
   .rs-sheet { animation: none; }
 }
 
+.rs-sheet h1,
+.rs-sheet h2,
+.rs-sheet h3 {
+  font-family: inherit;
+}
+
 .rs-sheet a {
   color: inherit;
   text-decoration: none;
@@ -158,6 +164,7 @@
   margin: 0;
   font-size: 1em;
   font-weight: 700;
+  letter-spacing: normal;
 }
 
 .rs-muted {

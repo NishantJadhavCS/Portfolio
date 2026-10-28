@@ -157,7 +157,12 @@
   }
   
   .testimonial-card-modern.featured {
-    padding: 40px 25px;
+    padding: 72px 25px 40px;
+  }
+
+  .featured-quote {
+    top: 24px;
+    right: 24px;
   }
   
   .featured-text {

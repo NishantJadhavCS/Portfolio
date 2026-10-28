@@ -5,7 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  /* top padding clears the floating navbar (~90px) on short screens */
+  padding: 112px 20px 80px;
   overflow: hidden;
   background: var(--bg-primary);
   transition: background-color 0.5s ease;
@@ -112,6 +113,7 @@
 
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   margin-bottom: 50px;
@@ -125,6 +127,7 @@
   font-size: 1.1rem;
   padding: 15px 36px;
   border-radius: 999px;
+  white-space: nowrap;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -269,9 +272,18 @@
   .hero-role-wrapper {
     font-size: 1.1rem;
   }
+  .hero-actions {
+    gap: 12px;
+  }
   .hero-btn {
-    padding: 12px 28px;
+    padding: 12px 22px;
+    gap: 10px;
     font-size: 1rem;
+  }
+  .hero-badge {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 7px 16px;
   }
   .social-icon-link {
     width: 45px;
