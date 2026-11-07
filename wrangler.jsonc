@@ -1,0 +1,9 @@
+// Explicit config so `wrangler deploy` uploads the Vite build as static assets
+// instead of running autoconfig (which fails to parse the multi-page vite.config.js).
+{
+  "name": "portfolio",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
