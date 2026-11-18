@@ -13,15 +13,20 @@ const navItems = [
   { href: '/resume/', label: 'Resume' },
 ];
 
+// Below this scroll offset the navbar blends into the hero instead of floating as a pill
+const TOP_THRESHOLD = 40;
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(() => window.scrollY < TOP_THRESHOLD);
   const lastScrollY = useRef(0);
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setIsAtTop(currentScrollY < TOP_THRESHOLD);
 
       // Show navbar if scrolling up or at the top
       if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
@@ -44,7 +49,7 @@ function Navbar() {
       initial={{ y: -100, x: '-50%' }}
       animate={{ y: isVisible ? 0 : -120, x: '-50%' }}
       transition={{ duration: 0.4, ease: 'easeInOut' }}
-      className="navbar"
+      className={`navbar ${isAtTop && !isOpen ? 'navbar--top' : 'navbar--floating'}`}
     >
       <div className="nav-container">
         {/* Logo Left */}

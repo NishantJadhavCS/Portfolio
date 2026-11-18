@@ -1,38 +1,50 @@
 /* Navbar.css */
 
 .navbar {
-  padding: 0.6rem 2.5rem;
+  /* Full-width edge-to-edge bar; horizontal padding matches the top state so the logo never shifts */
+  padding: 0.75rem 5.5%;
   position: fixed;
-  top: 15px;
+  top: 0;
   left: 50%;
-  width: 92%;
-  max-width: 1300px;
+  width: 100%;
   z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* transform is driven by framer-motion (hide/show), so it is left out here */
+  transition:
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease;
   background: var(--glass-bg);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 var(--shadow-primary);
+  border: 0 solid transparent;
+  border-bottom: 1px solid var(--glass-border);
+  border-radius: 0;
+  box-shadow: 0 8px 24px var(--shadow-primary);
   color: var(--text-primary);
-}
-
-@media (min-width: 1024px) {
-  .navbar {
-    width: 85%;
-  }
 }
 
 /* Specific theme adjustments if needed */
 :root[data-theme='dark'] .navbar {
-  background: rgba(26, 26, 46, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(14, 14, 28, 0.72);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme='light'] .navbar {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Seamless state: at the very top the bar dissolves into the hero (LiquidEther shows through) */
+.navbar.navbar--top,
+:root[data-theme] .navbar.navbar--top {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .nav-container {
@@ -181,11 +193,108 @@
 
 @media (max-width: 600px) {
   .navbar {
-    padding: 1rem;
+    padding: 0.75rem 20px;
   }
 
   .logo-image {
     height: 40px;
     width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar.navbar--top,
+  :root[data-theme] .navbar.navbar--top {
+    padding: 1rem 20px;
+  }
+}
+
+/* ---------- Seamless top state: tall bar, logo left, links grouped right ---------- */
+
+.navbar .logo-image,
+.navbar .desktop-links,
+.navbar .desktop-links a {
+  transition:
+    width 0.45s ease,
+    height 0.45s ease,
+    gap 0.45s ease,
+    margin 0.45s ease,
+    color 0.3s ease,
+    background-color 0.3s ease,
+    letter-spacing 0.45s ease,
+    font-size 0.45s ease;
+}
+
+.navbar.navbar--top,
+:root[data-theme] .navbar.navbar--top {
+  padding: 2rem 5.5%;
+}
+
+.navbar--top .logo-image {
+  height: 54px;
+  width: 54px;
+}
+
+.navbar--top .desktop-links {
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 28px;
+}
+
+.navbar--top .desktop-links a {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* Underline sweep instead of the pill hover */
+.navbar--top .desktop-links a::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s ease;
+}
+
+.navbar--top .desktop-links a:hover {
+  background: transparent;
+  color: var(--accent-primary);
+}
+
+.navbar--top .desktop-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (max-width: 1100px) {
+  .navbar--top .desktop-links {
+    gap: 2px;
+    margin-right: 16px;
+  }
+
+  .navbar--top .desktop-links a {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar.navbar--top,
+  :root[data-theme] .navbar.navbar--top {
+    padding: 1.25rem 20px;
+  }
+
+  .navbar--top .logo-image {
+    height: 44px;
+    width: 44px;
   }
 }
