@@ -1,220 +1,176 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react';
-import SectionHeader from './SectionHeader';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import SectionLabel from './SectionLabel';
 import './Experience.css';
 
+// Ordered by start date, most recent first. Freelance runs alongside the full-time roles.
 const experiences = [
   {
-    company: 'A&I Inc. USA',
     role: 'Full Stack Developer',
-    duration: 'Jul 2025 — Present',
-    location: 'USA / Remote',
+    company: 'A&I Inc.',
+    location: 'USA · Remote',
+    start: 'Jul 2025',
+    end: 'Present',
     points: [
       'Built and launched Juler, a public Shopify App Store app for personalized jewelry dropshipping and e-commerce automation.',
       'Built React frontend integrated with Django backend APIs using a scalable architecture.',
-      'Implemented JWT authentication and managed AWS deployments with Docker and GitHub Actions.'
+      'Implemented JWT authentication and managed AWS deployments with Docker and GitHub Actions.',
     ],
-    tech: ['React', 'Django', 'Shopify APIs', 'JWT', 'Docker', 'AWS', 'GitHub Actions']
+    tech: ['React', 'Django', 'Shopify APIs', 'JWT', 'Docker', 'AWS', 'GitHub Actions'],
   },
   {
-    company: 'Guyal - India',
     role: 'Full Stack Developer',
-    duration: 'Aug 2024 — Jul 2025',
+    company: 'Guyal',
     location: 'India',
+    start: 'Aug 2024',
+    end: 'Jul 2025',
     points: [
       'Developed and customized Shopify stores, workflows, and high-performance e-commerce solutions.',
       'Built responsive interfaces, analytics integrations, and performance-focused features.',
-      'Collaborated on PHP optimization and module development.'
+      'Collaborated on PHP optimization and module development.',
     ],
-    tech: ['Shopify', 'Liquid', 'JavaScript', 'React', 'Analytics']
+    tech: ['Shopify', 'Liquid', 'JavaScript', 'React', 'Analytics'],
   },
   {
-    company: 'Freelance Web Developer',
-    role: 'Remote / Self-Employed',
-    duration: 'Jun 2023 — Present',
-    location: 'Global',
+    role: 'Freelance Web Developer',
+    company: 'Freelance',
+    location: 'Remote · Self-employed',
+    start: 'Jun 2023',
+    end: 'Present',
     points: [
       'Built modern websites, e-commerce platforms, and custom web solutions for diverse clients.',
       'Focused on SEO optimization, analytics integration, and responsive UI development.',
-      'Delivered full-stack solutions using React, Django, and Shopify.'
+      'Delivered full-stack solutions using React, Django, and Shopify.',
     ],
-    tech: ['React', 'Django', 'Shopify', 'SEO', 'Analytics']
-  }
+    tech: ['React', 'Django', 'Shopify', 'SEO', 'Analytics'],
+  },
 ];
 
-const staggerContainer = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
+const ease = [0.22, 1, 0.36, 1];
 
-const fadeUpItem = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-};
-
-const staggerTags = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.05 } },
-};
-
-const popItem = {
-  hidden: { opacity: 0, scale: 0.8 },
-  show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 18 } },
-};
+const yearOf = (date) => (date === 'Present' ? 'Now' : date.split(' ')[1]);
 
 function Experience() {
-  const [activeTab, setActiveTab] = useState(0);
-  const tabsRef = useRef(null);
+  const [active, setActive] = useState(0);
+  const storyRef = useRef(null);
+  const blockRefs = useRef([]);
 
+  // The role whose block crosses the middle band of the viewport becomes the active (pinned) one.
   useEffect(() => {
-    if (tabsRef.current) {
-      const activeBtn = tabsRef.current.children[activeTab];
-      if (activeBtn) {
-        const containerWidth = tabsRef.current.offsetWidth;
-        const btnLeft = activeBtn.offsetLeft;
-        const btnWidth = activeBtn.offsetWidth;
-        tabsRef.current.scrollTo({
-          left: btnLeft - containerWidth / 2 + btnWidth / 2,
-          behavior: 'smooth'
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(Number(entry.target.dataset.index));
         });
-      }
-    }
-  }, [activeTab]);
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    blockRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Progress line fills as the story column passes the middle of the screen.
+  // Both offsets use the same viewport line, so the range always equals the column height.
+  const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start 0.5', 'end 0.5'] });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+
+  const scrollToRole = (index) => {
+    blockRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const current = experiences[active];
 
   return (
-    <section id="experience" className="experience-modern">
-      <div className="experience-bg-glow"></div>
+    <section id="experience" className="experience-section">
+      <div className="experience-inner">
+        <SectionLabel label="Experience" />
 
-      <div className="experience-container">
-        <SectionHeader
-          eyebrow="Career Path"
-          title="Work"
-          highlight="Experience"
-          description="Experience across full stack development, Shopify ecosystems, cloud infrastructure, and scalable web solutions."
-        />
-
-        <div className="experience-content-wrapper">
-          {/* Tabs Navigation */}
-          <div className="experience-tabs-container">
-            <div
-              className="experience-tabs"
-              ref={tabsRef}
-            >
-              {experiences.map((exp, index) => (
-                <motion.button
-                  key={index}
-                  className={`tab-btn ${activeTab === index ? 'active' : ''}`}
-                  onClick={() => setActiveTab(index)}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.08 }}
-                  whileHover={{ x: 4 }}
-                  whileTap={{ scale: 0.97 }}
+        <div className="experience-layout">
+          {/* Pinned column (desktop only) */}
+          <aside className="experience-pinned" aria-hidden="true">
+            <div className="experience-pinned-inner">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  className="experience-current"
+                  initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.45, ease }}
                 >
-                  {activeTab === index && (
-                    <motion.div
-                      className="tab-indicator"
-                      layoutId="activeTabIndicator"
-                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                    />
-                  )}
-                  <div className="tab-content">
-                    <span className="tab-company">{exp.company}</span>
-                    <span className="tab-role">{exp.role}</span>
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-
-            <div className="experience-dots mobile-only">
-              {experiences.map((exp, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={`exp-dot ${activeTab === index ? 'active' : ''}`}
-                  aria-label={`Show ${exp.company} experience`}
-                  onClick={() => setActiveTab(index)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Details View */}
-          <div className="experience-details">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, x: 30, scale: 0.98 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -30, scale: 0.98 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="details-card"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                onDragEnd={(e, { offset, velocity }) => {
-                  const isLeftSwipe = offset.x < -50 || velocity.x < -300;
-                  const isRightSwipe = offset.x > 50 || velocity.x > 300;
-
-                  if (isLeftSwipe && activeTab < experiences.length - 1) {
-                    setActiveTab((prev) => prev + 1);
-                  } else if (isRightSwipe && activeTab > 0) {
-                    setActiveTab((prev) => prev - 1);
-                  }
-                }}
-              >
-                <motion.div initial="hidden" animate="show" variants={staggerContainer}>
-                  <motion.div className="card-header" variants={fadeUpItem}>
-                    <div className="header-main">
-                      <h3>{experiences[activeTab].role}</h3>
-                      <div className="company-info">
-                        <Briefcase size={16} />
-                        <span>{experiences[activeTab].company}</span>
-                      </div>
-                    </div>
-                    <motion.div className="header-meta" variants={staggerTags}>
-                      <motion.div className="meta-item" variants={popItem} whileHover={{ y: -2, scale: 1.05 }}>
-                        <Calendar size={14} />
-                        <span>{experiences[activeTab].duration}</span>
-                      </motion.div>
-                      <motion.div className="meta-item" variants={popItem} whileHover={{ y: -2, scale: 1.05 }}>
-                        <MapPin size={14} />
-                        <span>{experiences[activeTab].location}</span>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-
-                  <div className="card-body">
-                    <ul className="points-list">
-                      {experiences[activeTab].points.map((point, idx) => (
-                        <motion.li key={idx} variants={fadeUpItem}>
-                          <ChevronRight size={18} className="point-icon" />
-                          <span>{point}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-
-                    <motion.div className="tech-footer" variants={fadeUpItem}>
-                      <span className="tech-label">Technologies Used:</span>
-                      <motion.div className="tech-grid" variants={staggerTags}>
-                        {experiences[activeTab].tech.map((tech, idx) => (
-                          <motion.span
-                            key={idx}
-                            className="tech-tag"
-                            variants={popItem}
-                            whileHover={{ y: -3, scale: 1.06 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </motion.div>
-                    </motion.div>
-                  </div>
+                  <p className="experience-current-dates">
+                    {current.start} — {current.end}
+                  </p>
+                  <p className="experience-current-company">{current.company}</p>
+                  <p className="experience-current-role">{current.role}</p>
+                  <p className="experience-current-location">{current.location}</p>
                 </motion.div>
-              </motion.div>
-            </AnimatePresence>
+              </AnimatePresence>
+
+              <div className="experience-rail">
+                <span className="experience-rail-track" />
+                <motion.span className="experience-rail-fill" style={{ scaleY: progress }} />
+                <ol className="experience-rail-list">
+                {experiences.map((exp, index) => (
+                  <li key={exp.company} className={index === active ? 'is-active' : ''}>
+                    <button type="button" tabIndex={-1} onClick={() => scrollToRole(index)}>
+                      <span className="experience-rail-dot" />
+                      <span className="experience-rail-name">{exp.company}</span>
+                      <span className="experience-rail-years">
+                        {yearOf(exp.start)}–{yearOf(exp.end)}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+                </ol>
+              </div>
+            </div>
+          </aside>
+
+          {/* Scrolling story */}
+          <div className="experience-story" ref={storyRef}>
+            <span className="experience-story-track" aria-hidden="true" />
+            <motion.span
+              className="experience-story-fill"
+              aria-hidden="true"
+              style={{ scaleY: progress }}
+            />
+
+            {experiences.map((exp, index) => (
+              <article
+                key={`${exp.company}-${exp.start}`}
+                ref={(el) => (blockRefs.current[index] = el)}
+                data-index={index}
+                className={`experience-block ${index === active ? 'is-active' : ''}`}
+              >
+                <span className="experience-block-dot" aria-hidden="true" />
+
+                {/* Full heading: the only heading on mobile, visually hidden on desktop where the pinned column shows it */}
+                <header className="experience-block-head">
+                  <p className="experience-block-dates">
+                    {exp.start} — {exp.end}
+                  </p>
+                  <h3 className="experience-block-role">{exp.role}</h3>
+                  <p className="experience-block-company">
+                    {exp.company} <span>· {exp.location}</span>
+                  </p>
+                </header>
+
+                <motion.ul
+                  className="experience-points"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.8, ease }}
+                >
+                  {exp.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </motion.ul>
+
+                <p className="experience-tech">{exp.tech.join(' · ')}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>
