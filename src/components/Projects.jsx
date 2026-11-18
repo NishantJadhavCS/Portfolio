@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import ScrollStack, { ScrollStackItem } from './ScrollStack'
-import SectionHeader from './SectionHeader'
+import SectionLabel from './SectionLabel'
 import './Projects.css'
 
 const projects = [
   {
-    title: 'Guyal - E-commerce Jewelry Store',
+    name: 'Guyal',
+    type: 'E-commerce jewelry store',
     image: '/images/guyal-website.webp',
     mobileImage: '/images/guyal-mobile.webp',
     width: 1400,
@@ -16,11 +18,11 @@ const projects = [
     href: 'https://www.guyal.com/',
     description:
       'Developed and maintained a feature-rich jewelry store using Shopify. Built custom sections, automated workflows, and integrated analytics tools.',
-    tags: ['#shopify', '#liquid', '#javascript', '#responsive-design', '#analytics'],
-    color: 'rgba(95, 95, 255, 0.1)'
+    tech: ['Shopify', 'Liquid', 'JavaScript', 'Responsive Design', 'Analytics'],
   },
   {
-    title: 'Juler - Shopify Dropshipping App',
+    name: 'Juler',
+    type: 'Shopify dropshipping app',
     image: '/images/juler-website.webp',
     mobileImage: '/images/juler-mobile.webp',
     width: 1400,
@@ -31,11 +33,11 @@ const projects = [
     href: 'https://apps.shopify.com/juler',
     description:
       'Public Shopify App Store app built at A&I Inc. that lets merchants launch a customizable jewelry brand with zero inventory. React frontend on Django APIs, with product personalization, conditional pricing, and automated drop-shipping fulfillment.',
-    tags: ['#react', '#django', '#shopify-api', '#liquid', '#docker', '#aws', '#github-actions'],
-    color: 'rgba(0, 255, 231, 0.1)'
+    tech: ['React', 'Django', 'Shopify API', 'Liquid', 'Docker', 'AWS', 'GitHub Actions'],
   },
   {
-    title: 'DumplingKhang - Restaurant Landing Page',
+    name: 'DumplingKhang',
+    type: 'Restaurant landing page',
     image: '/images/dumplingkhang.webp',
     mobileImage: '/images/dumplingkhang-mobile.webp',
     width: 1400,
@@ -46,11 +48,11 @@ const projects = [
     href: 'https://www.dumplingkhang.com',
     description:
       'A fully responsive static website built for a restaurant. Features include smooth scroll navigation, menu highlights, and WhatsApp ordering integration.',
-    tags: ['#html', '#css', '#javascript', '#responsive-design'],
-    color: 'rgba(91, 227, 214, 0.1)'
+    tech: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
   },
   {
-    title: 'RPious Couture - Clothing E-com Website',
+    name: 'RPious Couture',
+    type: 'Clothing e-commerce website',
     image: '/images/rpious-website.webp',
     mobileImage: '/images/rpious-mobile.webp',
     width: 1400,
@@ -61,10 +63,12 @@ const projects = [
     href: 'https://rpiouscouture.com/',
     description:
       "Building a custom Shopify storefront for a women's ethnic fashion brand. Personalized theme development, user experience focus, plus analytics.",
-    tags: ['#shopify', '#liquid', '#javascript', '#responsive-design', '#analytics'],
-    color: 'rgba(91, 227, 214, 0.1)'
+    tech: ['Shopify', 'Liquid', 'JavaScript', 'Responsive Design', 'Analytics'],
   },
 ]
+
+// "https://www.guyal.com/" -> "guyal.com", "https://apps.shopify.com/juler" -> "apps.shopify.com/juler"
+const displayUrl = (href) => href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 
 function Projects() {
   const [isMobile, setIsMobile] = useState(false);
@@ -80,17 +84,9 @@ function Projects() {
 
   return (
     <section id="Projects" className="projects-section">
-      <div className="bg-text-container">
-        <span className="bg-text left">Latest</span>
-        <span className="bg-text right">Works</span>
+      <div className="projects-heading">
+        <SectionLabel label="Projects" />
       </div>
-
-      <SectionHeader
-        eyebrow="Selected Work"
-        title="Featured"
-        highlight="Projects"
-        description="A showcase of selected projects highlighting my skills in web development and design."
-      />
 
       <div className="projects-stack-wrapper">
         <ScrollStack
@@ -98,37 +94,44 @@ function Projects() {
           itemScale={0.04}
           baseScale={0.92}
           itemStackDistance={isMobile ? 8 : 20}
-          /* Calculated to center an 82vh card perfectly on screen */
-          stackPosition={isMobile ? "10%" : "9%"}
+          /* Mobile: centres the 75vh card. Desktop: centres the ~75vh-tall 2:1 card */
+          stackPosition={isMobile ? "10%" : "11%"}
         >
-          {projects.map((project, idx) => (
-            <ScrollStackItem key={idx}>
+          {projects.map((project) => (
+            <ScrollStackItem key={project.name}>
               <a
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
-                className="project-stack-link-wrapper"
+                className="project-tile"
+                aria-label={`${project.name}, ${project.type}. Visit ${displayUrl(project.href)}`}
               >
-                <div className="project-stack-card-inner">
-                  <div className="project-card-visual">
-                    <img
-                      src={isMobile && project.mobileImage ? project.mobileImage : project.image}
-                      alt={project.alt}
-                      width={isMobile && project.mobileWidth ? project.mobileWidth : project.width}
-                      height={isMobile && project.mobileHeight ? project.mobileHeight : project.height}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="project-card-text">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className="project-tags">
-                      {project.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
+                <img
+                  className="project-tile-image"
+                  src={isMobile && project.mobileImage ? project.mobileImage : project.image}
+                  alt={project.alt}
+                  width={isMobile && project.mobileWidth ? project.mobileWidth : project.width}
+                  height={isMobile && project.mobileHeight ? project.mobileHeight : project.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="project-tile-scrim" aria-hidden="true" />
+
+                <div className="project-tile-content">
+                  <p className="project-tile-url">{displayUrl(project.href)}</p>
+
+                  <div className="project-tile-title-row">
+                    <div>
+                      <h3 className="project-tile-name">{project.name}</h3>
+                      <p className="project-tile-type">{project.type}</p>
                     </div>
+                    <span className="project-tile-cta">
+                      Visit site <ArrowUpRight size={18} aria-hidden="true" />
+                    </span>
                   </div>
+
+                  <p className="project-tile-description">{project.description}</p>
+                  <p className="project-tile-tech">{project.tech.join(' · ')}</p>
                 </div>
               </a>
             </ScrollStackItem>

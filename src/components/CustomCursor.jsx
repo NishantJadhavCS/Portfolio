@@ -21,7 +21,7 @@ const CustomCursor = () => {
       const target = e.target;
       
       // Check if hovering over a project card
-      if (target.closest('.project-stack-card-inner') || target.closest('.project-card')) {
+      if (target.closest('.project-tile')) {
         setCursorType('project');
       } 
       // Check if hovering over buttons, links, or icons
