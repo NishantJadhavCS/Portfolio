@@ -26,6 +26,7 @@
 
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
   font-family: var(--font-body);
   color: var(--text-primary);
