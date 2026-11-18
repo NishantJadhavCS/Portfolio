@@ -37,9 +37,12 @@ function ScrollReveal({
     target: containerRef,
     offset: ['start end', 'end end'],
   })
+  // Both ends are keyed to the element's top so the reveal window is always 50% of the viewport.
+  // The old ['start 0.8', 'end end'] range shrank to zero (or went negative) when the text was shorter
+  // than 20% of the viewport, e.g. on tall phones like iPhone 16 Pro Max / Pixel 9 Pro, leaving it blurred.
   const { scrollYProgress: wordProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.8', 'end end'],
+    offset: ['start 0.9', 'start 0.4'],
   })
   const rotate = useTransform(rotationProgress, [0, 1], [baseRotation, 0])
 
