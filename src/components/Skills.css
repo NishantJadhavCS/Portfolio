@@ -1,0 +1,197 @@
+/* Skills: two crossing tapes of type that drift sideways and react to scroll speed. No logos, no categories. */
+
+.skills-section {
+  position: relative;
+  padding: 120px 0 140px;
+  background: var(--bg-primary);
+  scroll-margin-top: 80px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.skills-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 5.5%;
+  box-sizing: content-box;
+}
+
+.skills-sr-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Tapes ---------- */
+
+/* Desktop: both tapes share a centre line and tilt opposite ways, so they cross in an X
+   and only overlap at the crossing point */
+.skills-tapes {
+  position: relative;
+  height: 440px;
+  margin-top: 48px;
+}
+
+.skills-tape {
+  position: absolute;
+  top: 50%;
+  /* Wider than the screen so the tilted ends never show a corner */
+  left: -10%;
+  width: 120%;
+  overflow: hidden;
+  padding: 18px 0;
+}
+
+.skills-tape--gradient {
+  z-index: 2;
+  transform: translateY(-50%) rotate(-6deg);
+  background: var(--gradient-primary);
+  box-shadow: 0 20px 60px var(--shadow-glow);
+}
+
+.skills-tape--outline {
+  z-index: 1;
+  transform: translateY(-50%) rotate(6deg);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.skills-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.skills-copy {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.skills-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.6vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  transition: color 0.3s ease, -webkit-text-stroke-color 0.3s ease;
+}
+
+.skills-dot {
+  flex: 0 0 auto;
+  width: 0.22em;
+  height: 0.22em;
+  margin: 0 0.7em;
+  border-radius: 50%;
+}
+
+/* Gradient tape: dark type on the brand gradient */
+.skills-tape--gradient .skills-item {
+  color: #060b16;
+}
+
+.skills-tape--gradient .skills-dot {
+  background: rgba(6, 11, 22, 0.55);
+}
+
+/* Outline tape: alternate solid and outlined words */
+.skills-tape--outline .skills-item {
+  color: var(--text-primary);
+}
+
+.skills-tape--outline .skills-item.is-alt {
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--text-muted);
+}
+
+.skills-tape--outline .skills-item.is-alt:hover {
+  -webkit-text-stroke-color: var(--accent-primary);
+}
+
+.skills-tape--outline .skills-item:not(.is-alt):hover {
+  color: var(--accent-primary);
+}
+
+.skills-tape--outline .skills-dot {
+  background: var(--accent-primary);
+}
+
+/* ---------- Light theme ---------- */
+
+[data-theme='light'] .skills-tape--gradient .skills-item {
+  color: #ffffff;
+}
+
+[data-theme='light'] .skills-tape--gradient .skills-dot {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme='light'] .skills-tape--outline {
+  background: #ffffff;
+}
+
+/* ---------- Reduced motion: static, wrapped tapes ---------- */
+
+.skills-track.is-static {
+  width: auto;
+  justify-content: center;
+}
+
+.skills-track.is-static .skills-copy {
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  justify-content: center;
+  padding: 0 12%;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 900px) {
+  .skills-section {
+    padding: 80px 0 96px;
+  }
+
+  .skills-inner {
+    padding: 0 20px;
+  }
+
+  /* Mobile: too narrow for a clean X, so the tapes stack with a gap and never cover each other */
+  .skills-tapes {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    height: auto;
+    margin-top: 56px;
+    padding: 24px 0;
+  }
+
+  .skills-tape {
+    position: relative;
+    top: auto;
+    padding: 12px 0;
+  }
+
+  .skills-tape--gradient {
+    transform: rotate(-3deg);
+  }
+
+  .skills-tape--outline {
+    transform: rotate(2deg);
+  }
+
+  .skills-item {
+    font-size: clamp(1.6rem, 7.5vw, 2.25rem);
+  }
+
+  .skills-tape--outline .skills-item.is-alt {
+    -webkit-text-stroke-width: 1px;
+  }
+}
