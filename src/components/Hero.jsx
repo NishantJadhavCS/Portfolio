@@ -1,8 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Download, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './BrandIcons';
 import RotatingText from './RotatingText';
 import './Hero.css';
 
@@ -16,44 +14,20 @@ const roles = [
   'Custom Web Integrations',
 ];
 
+const ease = [0.22, 1, 0.36, 1];
 
+// Headline words; the last one carries the brand gradient
+const titleWords = [
+  { text: 'Hi,' },
+  { text: "I'm" },
+  { text: 'Nishant.', highlight: true },
+];
 
-const TooltipIcon = ({ href, label, children }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="tooltip-container"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <motion.a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={label}
-        className="social-icon-link"
-        whileHover={{ scale: 1.15, y: -5 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {children}
-      </motion.a>
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            className="tooltip-label"
-          >
-            {label}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
+const fadeUp = (delay) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease, delay },
+});
 
 function Hero() {
   const { theme } = useTheme();
@@ -87,116 +61,65 @@ function Hero() {
         </Suspense>
       )}
 
-      <div className="hero-content">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="hero-badge"
-        >
-          Building Modern Web Applications
+      <div className="hero-shell">
+        <motion.div className="hero-meta" {...fadeUp(0.1)}>
+          <span>Full stack developer — Mumbai</span>
+          <span className="hero-status">
+            <span className="hero-status-dot" aria-hidden="true" />
+            Available for freelance
+          </span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Hi! I'm <span className="hero-name">Nishant</span>
-        </motion.h1>
+        <div className="hero-main">
+          <h1 className="hero-title" aria-label="Hi, I'm Nishant.">
+            {titleWords.map((word, i) => (
+              <span className="hero-title-mask" key={word.text} aria-hidden="true">
+                <motion.span
+                  className={`hero-title-word ${word.highlight ? 'is-highlight' : ''}`}
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 1, ease, delay: 0.25 + i * 0.12 }}
+                >
+                  {word.text}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="hero-role-wrapper"
-        >
-          {" "}
-          <RotatingText
-            texts={roles}
-            mainClassName="hero-rotating-text"
-            staggerFrom={"last"}
-            initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: "-120%", opacity: 0 }}
-            staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={3000}
-          />
-        </motion.h2>
+          <motion.p className="hero-role" {...fadeUp(0.7)}>
+            <RotatingText
+              texts={roles}
+              mainClassName="hero-rotating-text"
+              staggerFrom="last"
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-120%', opacity: 0 }}
+              staggerDuration={0.025}
+              splitLevelClassName="hero-rotating-split"
+              transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />
+          </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <p className="hero-description">
-            Passionate about crafting dynamic web experiences and scalable backend architectures. Let's build something amazing together.
-          </p>
-        </motion.div>
+          <motion.p className="hero-description" {...fadeUp(0.85)}>
+            Websites, Shopify stores and web apps, built to load fast, rank well and convert.
+          </motion.p>
 
-        <motion.div
-          className="hero-actions"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <motion.a
-            href="https://wa.me/918928755993"
-            className="hero-btn hero-btn-primary"
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <WhatsappIcon size={22} /> Get in Touch
-          </motion.a>
+          <motion.div className="hero-actions" {...fadeUp(1)}>
+            <a href="#contact" className="hero-cta">
+              Start a project <span aria-hidden="true">→</span>
+            </a>
+            <a href="/resume/" className="hero-link">
+              Resume <span aria-hidden="true">↗</span>
+            </a>
+          </motion.div>
+        </div>
 
-          <motion.a
-            href="/resume/"
-            className="hero-btn hero-btn-secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Download size={22} /> Resume
-          </motion.a>
-        </motion.div>
-
-        <motion.div
-          className="hero-socials"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          <TooltipIcon href="https://github.com/NishantJadhavCS" label="GitHub">
-            <GithubIcon size={24} />
-          </TooltipIcon>
-          <TooltipIcon href="https://www.linkedin.com/in/nishant-jadhav10/" label="LinkedIn">
-            <LinkedinIcon size={24} />
-          </TooltipIcon>
-          <TooltipIcon href="https://www.instagram.com/nishnt__10/" label="Instagram">
-            <InstagramIcon size={24} />
-          </TooltipIcon>
-          <TooltipIcon href="https://leetcode.com/u/NishantJadhavCS/" label="LeetCode">
-            <img src="/images/leetcode.png" alt="LeetCode" className="social-img" width={26} height={26} loading="lazy" decoding="async" />
-          </TooltipIcon>
-        </motion.div>
+        <motion.a href="#about" className="hero-scroll" aria-label="Scroll to About" {...fadeUp(1.3)}>
+          <span>Scroll</span>
+          <span className="hero-scroll-line" aria-hidden="true" />
+        </motion.a>
       </div>
-
-      <motion.div
-        className="scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{
-          opacity: { delay: 1.2, duration: 0.8 },
-          y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
-        }}
-      >
-        <a href="#about" aria-label="Scroll down">
-          <ChevronDown size={32} />
-        </a>
-      </motion.div>
     </section>
   );
 }
