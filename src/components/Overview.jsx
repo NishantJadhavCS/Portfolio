@@ -1,45 +1,132 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Reveal from './Reveal'
 import SectionHeader from './SectionHeader'
 import ScrollReveal from './ScrollReveal'
-import HoverCard from './HoverCard'
-import { Code2, ShoppingCart, MessageSquare, BarChart3 } from 'lucide-react'
+import { Code2, ShoppingCart, MessageSquare, BarChart3, ArrowUpRight } from 'lucide-react'
 import './Overview.css'
 
 const services = [
   {
     title: 'Full Stack Development',
     description: 'End-to-end web apps with React, Django, and modern APIs.',
-    icon: <Code2 size={40} />,
-    accentSolid: '#2dd4bf',
-    accentSoft: 'rgba(45, 212, 191, 0.35)',
+    tags: ['React', 'Django', 'REST APIs', 'JavaScript'],
+    icon: Code2,
+    accent: '#2dd4bf',
   },
   {
     title: 'E-Commerce Solutions',
     description: 'Custom Shopify storefronts, automations, and conversion-focused UX.',
-    icon: <ShoppingCart size={40} />,
-    accentSolid: '#38bdf8',
-    accentSoft: 'rgba(56, 189, 248, 0.35)',
+    tags: ['Shopify', 'Liquid', 'Shopify Apps', 'Automations'],
+    icon: ShoppingCart,
+    accent: '#38bdf8',
   },
   {
     title: 'Freelance Consulting',
     description: 'Flexible collaboration for startups and growing businesses.',
-    icon: <MessageSquare size={40} />,
-    accentSolid: '#c084fc',
-    accentSoft: 'rgba(192, 132, 252, 0.35)',
+    tags: ['Freelance', 'Contract', 'Startups'],
+    icon: MessageSquare,
+    accent: '#c084fc',
   },
   {
     title: 'Analytics & SEO',
     description: 'Data-driven insights and search visibility that drive growth.',
-    icon: <BarChart3 size={40} />,
-    accentSolid: '#f472b6',
-    accentSoft: 'rgba(244, 114, 182, 0.35)',
+    tags: ['SEO', 'Google Analytics', 'Performance'],
+    icon: BarChart3,
+    accent: '#f472b6',
   },
 ]
 
+const ease = [0.22, 1, 0.36, 1]
+
+function ServiceRow({ service, index, isActive, onActivate }) {
+  const Icon = service.icon
+  const panelId = `service-panel-${index}`
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
+    e.currentTarget.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
+  }
+
+  return (
+    <li
+      className={`service-row ${isActive ? 'is-active' : ''}`}
+      style={{ '--service-accent': service.accent }}
+      onMouseEnter={onActivate}
+      onMouseMove={handleMouseMove}
+    >
+      <motion.span
+        className="service-row-fill"
+        aria-hidden="true"
+        initial={false}
+        animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0.6 }}
+        transition={{ duration: 0.5, ease }}
+      />
+      <span className="service-row-spotlight" aria-hidden="true" />
+
+      <button
+        type="button"
+        className="service-row-head"
+        aria-expanded={isActive}
+        aria-controls={panelId}
+        onClick={onActivate}
+        onFocus={onActivate}
+      >
+        <span className="service-row-index">{String(index + 1).padStart(2, '0')}</span>
+        <motion.span
+          className="service-row-title"
+          initial={false}
+          animate={{ x: isActive ? 10 : 0 }}
+          transition={{ duration: 0.4, ease }}
+        >
+          {service.title}
+        </motion.span>
+        <motion.span
+          className="service-row-icon"
+          aria-hidden="true"
+          initial={false}
+          animate={{ rotate: isActive ? 0 : -45 }}
+          transition={{ duration: 0.4, ease }}
+        >
+          {isActive ? <Icon size={22} /> : <ArrowUpRight size={22} />}
+        </motion.span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isActive && (
+          <motion.div
+            id={panelId}
+            className="service-row-panel"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease }}
+          >
+            <div className="service-row-body">
+              <p>{service.description}</p>
+              <ul className="service-row-tags">
+                {service.tags.map((tag, i) => (
+                  <motion.li
+                    key={tag}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + i * 0.05, duration: 0.3 }}
+                  >
+                    {tag}
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </li>
+  )
+}
+
 function Overview() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0)
 
   return (
     <section id="about" className="overview-section">
@@ -59,70 +146,27 @@ My work focuses on creating high-performance digital experiences using React, Dj
 Open to freelance and contract opportunities in full stack development, e-commerce, and performance-focused web solutions.`}
       </ScrollReveal>
 
-      <div className="overview-cards-wrapper">
-        <div className="overview-cards desktop-only">
-          {services.map((service, index) => (
-            <Reveal key={index} delay={index * 0.1}>
-              <HoverCard
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                accentSolid={service.accentSolid}
-                accentSoft={service.accentSoft}
+      <Reveal>
+        <div className="services-panel">
+          <div className="services-panel-header">
+            <span className="services-label">What I do</span>
+            <span className="services-count">
+              {String(activeIndex + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
+            </span>
+          </div>
+          <ul className="service-list">
+            {services.map((service, index) => (
+              <ServiceRow
+                key={service.title}
+                service={service}
+                index={index}
+                isActive={activeIndex === index}
+                onActivate={() => setActiveIndex(index)}
               />
-            </Reveal>
-          ))}
+            ))}
+          </ul>
         </div>
-
-        {/* Mobile Carousel View */}
-        <div className="overview-carousel mobile-only">
-          <div className="carousel-content">
-            <motion.div
-              className="carousel-track"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              animate={{ x: `calc(-${currentSlide * 85}% - ${currentSlide * 15}px)` }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              onDragEnd={(e, { offset, velocity }) => {
-                const isLeftSwipe = offset.x < -50 || velocity.x < -300;
-                const isRightSwipe = offset.x > 50 || velocity.x > 300;
-                
-                if (isLeftSwipe && currentSlide < services.length - 1) {
-                  setCurrentSlide((prev) => prev + 1);
-                } else if (isRightSwipe && currentSlide > 0) {
-                  setCurrentSlide((prev) => prev - 1);
-                }
-              }}
-            >
-              {services.map((service, index) => (
-                <div key={index} className="mobile-card-wrapper">
-                  <HoverCard
-                    icon={service.icon}
-                    title={service.title}
-                    description={service.description}
-                    accentSolid={service.accentSolid}
-                accentSoft={service.accentSoft}
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          <div className="carousel-controls" style={{ marginTop: '10px' }}>
-            <div className="carousel-dots">
-              {services.map((service, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={`dot ${currentSlide === index ? 'active' : ''}`}
-                  aria-label={`Go to ${service.title} slide`}
-                  onClick={() => setCurrentSlide(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      </Reveal>
     </section>
   )
 }
