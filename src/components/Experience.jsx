@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import SectionLabel from './SectionLabel';
+import useMediaQuery, { MOBILE_QUERY } from '../hooks/useMediaQuery';
 import './Experience.css';
 
 // Ordered by start date, most recent first. Freelance runs alongside the full-time roles.
@@ -83,6 +84,17 @@ function Experience() {
 
   const current = experiences[active];
 
+  // Phones: which roles have their bullet points opened
+  const isMobile = useMediaQuery(MOBILE_QUERY);
+  const [openRoles, setOpenRoles] = useState(() => new Set());
+  const toggleRole = (index) =>
+    setOpenRoles((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+
   return (
     <section id="experience" className="experience-section">
       <div className="experience-inner">
@@ -161,7 +173,41 @@ function Experience() {
 
                 <h4 className="experience-highlight">{exp.highlight}</h4>
 
-                {/* Details split into two labelled columns so the block scans instead of reading as one long list */}
+                {isMobile ? (
+                  // Phones: stack stays visible, the bullet points open on tap
+                  <div className="experience-mobile-details">
+                    <ul className="experience-stack">
+                      {exp.tech.map((tool) => (
+                        <li key={tool}>{tool}</li>
+                      ))}
+                    </ul>
+                    <button
+                      type="button"
+                      className={`experience-toggle ${openRoles.has(index) ? 'is-open' : ''}`}
+                      aria-expanded={openRoles.has(index)}
+                      onClick={() => toggleRole(index)}
+                    >
+                      What I built
+                      <span className="experience-toggle-plus" aria-hidden="true" />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {openRoles.has(index) && (
+                        <motion.ul
+                          className="experience-points"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease }}
+                        >
+                          {exp.points.map((point) => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                /* Details split into two labelled columns so the block scans instead of reading as one long list */
                 <motion.div
                   className="experience-details"
                   initial={{ opacity: 0, y: 24 }}
@@ -186,6 +232,7 @@ function Experience() {
                     </ul>
                   </div>
                 </motion.div>
+                )}
               </article>
             ))}
           </div>

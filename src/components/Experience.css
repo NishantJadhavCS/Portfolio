@@ -415,3 +415,79 @@
     transition: none;
   }
 }
+
+/* ---------- Phones: stack visible, bullet points open on tap ---------- */
+
+.experience-mobile-details {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .experience-mobile-details {
+    display: block;
+  }
+
+  .experience-highlight {
+    margin-bottom: 14px;
+  }
+
+  .experience-mobile-details .experience-stack {
+    margin-bottom: 18px;
+  }
+
+  .experience-toggle {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    cursor: pointer;
+  }
+
+  .experience-toggle:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+  }
+
+  /* Plus drawn with two lines; becomes a minus when open */
+  .experience-toggle-plus {
+    position: relative;
+    width: 11px;
+    height: 11px;
+  }
+
+  .experience-toggle-plus::before,
+  .experience-toggle-plus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .experience-toggle-plus::after {
+    transform: rotate(90deg);
+  }
+
+  .experience-toggle.is-open .experience-toggle-plus::after {
+    transform: rotate(0deg);
+  }
+
+  .experience-mobile-details .experience-points {
+    overflow: hidden;
+  }
+
+  .experience-mobile-details .experience-points li:first-child {
+    margin-top: 12px;
+  }
+}
