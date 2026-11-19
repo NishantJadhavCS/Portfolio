@@ -186,3 +186,128 @@
     transition: none;
   }
 }
+
+/* ---------- Phones: less text up front ---------- */
+
+.about-facts-compact {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* The statement carries the message; the paragraph and the full fact list are desktop-only */
+  .about-support,
+  .about-facts {
+    display: none;
+  }
+
+  .about-grid {
+    gap: 28px;
+    margin-bottom: 48px;
+  }
+
+  .about-statement.scroll-reveal {
+    margin-bottom: 0;
+  }
+
+  .about-facts-compact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 0;
+    order: 2;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .about-facts-compact > * + *::before {
+    content: '·';
+    margin: 0 10px;
+    color: var(--text-muted);
+  }
+
+  .about-facts-compact a {
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  /* Services become a tap-to-open list */
+  .about-service {
+    padding: 0;
+  }
+
+  .about-service-title {
+    margin: 0;
+  }
+
+  .about-service-toggle {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 22px 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .about-service-toggle:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .about-service.is-open .about-service-title {
+    color: var(--text-primary);
+  }
+
+  .about-service.is-open .about-service-rule {
+    transform: scaleX(1);
+  }
+
+  /* Plus sign drawn with two lines; turns into a minus when open */
+  .about-service-plus {
+    position: relative;
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+  }
+
+  .about-service-plus::before,
+  .about-service-plus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-service-plus::after {
+    transform: rotate(90deg);
+  }
+
+  .about-service.is-open .about-service-plus::after {
+    transform: rotate(0deg);
+  }
+
+  .about-service-panel {
+    overflow: hidden;
+  }
+
+  .about-service-panel .about-service-description {
+    margin: 0 0 14px;
+  }
+
+  .about-service-panel .about-service-stack {
+    margin: 0 0 24px;
+  }
+}

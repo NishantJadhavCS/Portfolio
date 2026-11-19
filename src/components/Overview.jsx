@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import SectionLabel from './SectionLabel'
 import ScrollReveal from './ScrollReveal'
+import useMediaQuery, { MOBILE_QUERY } from '../hooks/useMediaQuery'
 import './Overview.css'
 
 const statement =
@@ -56,6 +57,8 @@ function Fact({ label, children }) {
 
 function Overview() {
   const time = useIndiaTime()
+  const isMobile = useMediaQuery(MOBILE_QUERY)
+  const [openService, setOpenService] = useState(null)
 
   return (
     <section id="about" className="about-section">
@@ -84,6 +87,13 @@ function Overview() {
             </Fact>
           </motion.dl>
 
+          {/* Phones: the three facts collapse into one compact mono line */}
+          <p className="about-facts-compact">
+            <span>A&amp;I Inc.</span>
+            <span>Mumbai {time} IST</span>
+            <a href="https://apps.shopify.com/juler" target="_blank" rel="noreferrer">Juler ↗</a>
+          </p>
+
           <div className="about-copy">
             <ScrollReveal
               baseOpacity={0.15}
@@ -110,21 +120,58 @@ function Overview() {
         </div>
 
         <ol className="about-services">
-          {services.map((service, index) => (
-            <motion.li
-              key={service.title}
-              className="about-service"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.8, ease, delay: index * 0.12 }}
-            >
-              <span className="about-service-rule" aria-hidden="true" />
-              <h3 className="about-service-title">{service.title}</h3>
-              <p className="about-service-description">{service.description}</p>
-              <p className="about-service-stack">{service.stack.join(' · ')}</p>
-            </motion.li>
-          ))}
+          {services.map((service, index) => {
+            const isOpen = openService === index
+            return (
+              <motion.li
+                key={service.title}
+                className={`about-service ${isOpen ? 'is-open' : ''}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.8, ease, delay: index * 0.12 }}
+              >
+                <span className="about-service-rule" aria-hidden="true" />
+
+                {isMobile ? (
+                  // Phones: titles only, tap to open one service at a time
+                  <>
+                    <h3 className="about-service-title">
+                      <button
+                        type="button"
+                        className="about-service-toggle"
+                        aria-expanded={isOpen}
+                        onClick={() => setOpenService(isOpen ? null : index)}
+                      >
+                        {service.title}
+                        <span className="about-service-plus" aria-hidden="true" />
+                      </button>
+                    </h3>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          className="about-service-panel"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease }}
+                        >
+                          <p className="about-service-description">{service.description}</p>
+                          <p className="about-service-stack">{service.stack.join(' · ')}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="about-service-title">{service.title}</h3>
+                    <p className="about-service-description">{service.description}</p>
+                    <p className="about-service-stack">{service.stack.join(' · ')}</p>
+                  </>
+                )}
+              </motion.li>
+            )
+          })}
         </ol>
       </div>
     </section>
