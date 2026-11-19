@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: minmax(300px, 5fr) 7fr;
   gap: 80px;
-  margin-top: 72px;
+  margin-top: 24px;
 }
 
 /* ---------- Pinned column ---------- */
@@ -27,12 +27,22 @@
   position: relative;
 }
 
+/* Chapters: the pinned column and every role block are one screen tall, and both start their content
+   at the same line (--chapter-top), so the pinned role and the active block share a top edge */
+.experience-section {
+  --chapter-top: 24vh;
+}
+
 .experience-pinned-inner {
   position: sticky;
-  top: 22vh;
+  top: 0;
+  box-sizing: border-box;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 56px;
+  padding-top: var(--chapter-top);
 }
 
 .experience-current {
@@ -168,23 +178,37 @@
 }
 
 .experience-block {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 60vh;
-  padding: 40px 0;
-  opacity: 0.35;
-  transition: opacity 0.5s ease;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--chapter-top) 0 0;
+  opacity: 0.15;
+  transition: opacity 0.6s ease;
 }
 
 .experience-block.is-active {
   opacity: 1;
 }
 
-.experience-block:first-child {
-  min-height: 55vh;
-  justify-content: flex-start;
-  padding-top: 0;
+/* Large faint start year behind each chapter */
+.experience-year {
+  position: absolute;
+  bottom: 4vh;
+  right: -2%;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 17vw, 16rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--glass-border);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Visually hidden on desktop (the pinned column shows it), kept for screen readers */
@@ -311,6 +335,10 @@
   .experience-story-fill {
     background: var(--accent-primary);
     transform-origin: top center;
+  }
+
+  .experience-year {
+    display: none;
   }
 
   .experience-block,

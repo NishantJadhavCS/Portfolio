@@ -43,51 +43,6 @@
   pointer-events: auto;
 }
 
-/* ---------- Meta row ---------- */
-
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px 32px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--glass-border);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.hero-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.hero-status-dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #34d399;
-}
-
-.hero-status-dot::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #34d399;
-  animation: hero-pulse 2.4s ease-out infinite;
-}
-
-@keyframes hero-pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  80%, 100% { transform: scale(2.8); opacity: 0; }
-}
-
 /* ---------- Main block ---------- */
 
 .hero-main {
@@ -283,11 +238,6 @@
     padding: 112px 20px 28px;
   }
 
-  .hero-meta {
-    flex-direction: column;
-    gap: 10px;
-    font-size: 0.68rem;
-  }
 
   .hero-main {
     padding: 40px 0;
@@ -308,7 +258,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-status-dot::after,
   .hero-scroll-line::after {
     animation: none;
   }

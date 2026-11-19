@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SectionLabel from './SectionLabel';
+import { stagger, riseItem, inView as revealOnView } from '../lib/motion';
 import './Testimonials.css';
 
 const testimonials = [
@@ -59,6 +60,10 @@ function Testimonials() {
         {/* All quotes share one grid cell, so the block is as tall as the longest quote and never jumps */}
         <motion.div
           className="testimonials-stage"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 1, ease }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.15}
@@ -93,11 +98,18 @@ function Testimonials() {
           })}
         </motion.div>
 
-        <div className="testimonials-tabs" role="tablist" aria-label="Testimonials">
+        <motion.div
+          className="testimonials-tabs"
+          role="tablist"
+          aria-label="Testimonials"
+          variants={stagger(0.1, 0.3)}
+          {...revealOnView(0.5)}
+        >
           {testimonials.map((item, index) => {
             const isActive = index === active;
             return (
-              <button
+              <motion.button
+                variants={riseItem}
                 key={item.name}
                 type="button"
                 role="tab"
@@ -118,10 +130,10 @@ function Testimonials() {
                 </span>
                 <span className="testimonials-tab-name">{item.name}</span>
                 <span className="testimonials-tab-role">{item.role}</span>
-              </button>
+              </motion.button>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

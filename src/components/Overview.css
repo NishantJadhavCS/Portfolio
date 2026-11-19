@@ -1,8 +1,8 @@
-/* About: editorial continuation of the hero. No cards, no icons; type and hairlines only. */
+/* About: a short bridge from the hero. One large statement, then a row of three facts. */
 
 .about-section {
   position: relative;
-  padding: 140px 5.5% 120px;
+  padding: 140px 5.5% 100px;
   background: var(--bg-primary);
   scroll-margin-top: 80px;
   text-align: left;
@@ -13,25 +13,42 @@
   margin: 0 auto;
 }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: minmax(220px, 4fr) 8fr;
-  gap: 48px 64px;
-  margin: 64px 0 96px;
+/* ---------- Statement ---------- */
+
+.about-statement.scroll-reveal {
+  max-width: 1080px;
+  margin: 64px 0 72px;
 }
 
-/* ---------- Facts ---------- */
+.about-statement-text.scroll-reveal-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+/* ---------- Facts row ---------- */
 
 .about-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 48px;
   margin: 0;
-  padding-top: 10px;
+  padding-top: 28px;
+}
+
+/* Top hairline of the facts row; draws in from the left */
+.about-facts-rule {
+  display: block;
+  height: 1px;
+  background: var(--glass-border);
+  transform-origin: left center;
 }
 
 .about-fact dt {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
@@ -45,7 +62,7 @@
   flex-direction: column;
   gap: 4px;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   line-height: 1.5;
   color: var(--text-primary);
@@ -57,156 +74,37 @@
   color: var(--text-muted);
 }
 
-/* ---------- Statement ---------- */
-
-.about-statement.scroll-reveal {
-  max-width: none;
-  margin: 0 0 32px;
+.about-fact dd a {
+  align-self: flex-start;
+  color: var(--accent-primary);
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.about-statement-text.scroll-reveal-text {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3.4vw, 2.75rem);
-  font-weight: 500;
-  line-height: 1.22;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+.about-fact dd a:hover {
+  background-size: 100% 1px;
 }
 
-.about-support {
-  max-width: 600px;
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-}
-
-/* ---------- Services ---------- */
-
-.about-services {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.about-service {
-  position: relative;
-  padding-top: 28px;
-  border-top: 1px solid var(--glass-border);
-}
-
-/* Accent line that fills the hairline from the left on hover */
-.about-service-rule {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--accent-primary);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.about-service:hover .about-service-rule {
-  transform: scaleX(1);
-}
-
-.about-service-title {
-  margin: 0 0 12px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.about-service:hover .about-service-title {
-  color: var(--text-primary);
-}
-
-.about-service-description {
-  max-width: 340px;
-  margin: 0 0 20px;
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
-.about-service-stack {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  opacity: 0.85;
-}
-
-/* ---------- Responsive ---------- */
-
-@media (max-width: 900px) {
-  .about-section {
-    padding: 96px 20px 80px;
-  }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-    margin: 48px 0 64px;
-  }
-
-  .about-facts {
-    order: 2;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 24px 40px;
-    padding-top: 0;
-  }
-
-  .about-services {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .about-service {
-    padding: 24px 0 28px;
-  }
-
-  .about-service-description {
-    max-width: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .about-service-rule {
-    transition: none;
-  }
-}
-
-/* ---------- Phones: less text up front ---------- */
-
+/* Phone-only compact facts line */
 .about-facts-compact {
   display: none;
 }
 
-@media (max-width: 900px) {
-  /* The statement carries the message; the paragraph and the full fact list are desktop-only */
-  .about-support,
-  .about-facts {
-    display: none;
-  }
+/* ---------- Phones ---------- */
 
-  .about-grid {
-    gap: 28px;
-    margin-bottom: 48px;
+@media (max-width: 900px) {
+  .about-section {
+    padding: 96px 20px 56px;
   }
 
   .about-statement.scroll-reveal {
-    margin-bottom: 0;
+    margin: 40px 0 28px;
+  }
+
+  .about-facts,
+  .about-facts-rule {
+    display: none;
   }
 
   .about-facts-compact {
@@ -214,7 +112,6 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 8px 0;
-    order: 2;
     margin: 0;
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -233,81 +130,5 @@
   .about-facts-compact a {
     color: var(--accent-primary);
     text-decoration: none;
-  }
-
-  /* Services become a tap-to-open list */
-  .about-service {
-    padding: 0;
-  }
-
-  .about-service-title {
-    margin: 0;
-  }
-
-  .about-service-toggle {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
-    padding: 22px 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-  }
-
-  .about-service-toggle:focus-visible {
-    outline: 2px solid var(--accent-primary);
-    outline-offset: 2px;
-  }
-
-  .about-service.is-open .about-service-title {
-    color: var(--text-primary);
-  }
-
-  .about-service.is-open .about-service-rule {
-    transform: scaleX(1);
-  }
-
-  /* Plus sign drawn with two lines; turns into a minus when open */
-  .about-service-plus {
-    position: relative;
-    flex: 0 0 auto;
-    width: 14px;
-    height: 14px;
-  }
-
-  .about-service-plus::before,
-  .about-service-plus::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1.5px;
-    background: currentColor;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .about-service-plus::after {
-    transform: rotate(90deg);
-  }
-
-  .about-service.is-open .about-service-plus::after {
-    transform: rotate(0deg);
-  }
-
-  .about-service-panel {
-    overflow: hidden;
-  }
-
-  .about-service-panel .about-service-description {
-    margin: 0 0 14px;
-  }
-
-  .about-service-panel .about-service-stack {
-    margin: 0 0 24px;
   }
 }

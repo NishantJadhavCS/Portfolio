@@ -62,14 +62,6 @@ function Hero() {
       )}
 
       <div className="hero-shell">
-        <motion.div className="hero-meta" {...fadeUp(0.1)}>
-          <span>Full stack developer — Mumbai</span>
-          <span className="hero-status">
-            <span className="hero-status-dot" aria-hidden="true" />
-            Available for freelance
-          </span>
-        </motion.div>
-
         <div className="hero-main">
           <h1 className="hero-title" aria-label="Hi, I'm Nishant.">
             {titleWords.map((word, i) => (

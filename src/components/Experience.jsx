@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import SectionLabel from './SectionLabel';
 import useMediaQuery, { MOBILE_QUERY } from '../hooks/useMediaQuery';
+import { stagger, riseItem, inView } from '../lib/motion';
 import './Experience.css';
 
 // Ordered by start date, most recent first. Freelance runs alongside the full-time roles.
@@ -59,7 +60,10 @@ function Experience() {
   const storyRef = useRef(null);
   const blockRefs = useRef([]);
 
-  // The role whose block crosses the middle band of the viewport becomes the active (pinned) one.
+  const isMobile = useMediaQuery(MOBILE_QUERY);
+
+  // Which role is active. Desktop: a thin band near the top, so the pinned side switches as the next
+  // chapter's content reaches the shared top line. Phones: the middle band, for the timeline dots.
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -67,11 +71,11 @@ function Experience() {
           if (entry.isIntersecting) setActive(Number(entry.target.dataset.index));
         });
       },
-      { rootMargin: '-45% 0px -50% 0px' }
+      { rootMargin: isMobile ? '-45% 0px -50% 0px' : '-6% 0px -93% 0px' }
     );
     blockRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
   // Progress line fills as the story column passes the middle of the screen.
   // Both offsets use the same viewport line, so the range always equals the column height.
@@ -85,7 +89,6 @@ function Experience() {
   const current = experiences[active];
 
   // Phones: which roles have their bullet points opened
-  const isMobile = useMediaQuery(MOBILE_QUERY);
   const [openRoles, setOpenRoles] = useState(() => new Set());
   const toggleRole = (index) =>
     setOpenRoles((prev) => {
@@ -104,6 +107,13 @@ function Experience() {
           {/* Pinned column (desktop only) */}
           <aside className="experience-pinned" aria-hidden="true">
             <div className="experience-pinned-inner">
+              {/* Entrance: the pinned role slides in the first time the section comes into view */}
+              <motion.div
+                initial={{ opacity: 0, x: -32 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.9, ease }}
+              >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -121,13 +131,14 @@ function Experience() {
                   <p className="experience-current-location">{current.location}</p>
                 </motion.div>
               </AnimatePresence>
+              </motion.div>
 
               <div className="experience-rail">
                 <span className="experience-rail-track" />
                 <motion.span className="experience-rail-fill" style={{ scaleY: progress }} />
-                <ol className="experience-rail-list">
+                <motion.ol className="experience-rail-list" variants={stagger(0.12, 0.3)} {...inView(0.6)}>
                 {experiences.map((exp, index) => (
-                  <li key={exp.company} className={index === active ? 'is-active' : ''}>
+                  <motion.li key={exp.company} variants={riseItem} className={index === active ? 'is-active' : ''}>
                     <button type="button" tabIndex={-1} onClick={() => scrollToRole(index)}>
                       <span className="experience-rail-dot" />
                       <span className="experience-rail-name">{exp.company}</span>
@@ -135,9 +146,9 @@ function Experience() {
                         {yearOf(exp.start)}–{yearOf(exp.end)}
                       </span>
                     </button>
-                  </li>
+                  </motion.li>
                 ))}
-                </ol>
+                </motion.ol>
               </div>
             </div>
           </aside>
@@ -159,9 +170,19 @@ function Experience() {
                 className={`experience-block ${index === active ? 'is-active' : ''}`}
               >
                 <span className="experience-block-dot" aria-hidden="true" />
+                <motion.span
+                  className="experience-year"
+                  aria-hidden="true"
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 1.2, ease }}
+                >
+                  {exp.start.split(' ')[1]}
+                </motion.span>
 
                 {/* Full heading: the only heading on mobile, visually hidden on desktop where the pinned column shows it */}
-                <header className="experience-block-head">
+                <motion.header className="experience-block-head" variants={riseItem} {...inView(0.6)}>
                   <p className="experience-block-dates">
                     {exp.start} — {exp.end}
                   </p>
@@ -169,9 +190,11 @@ function Experience() {
                   <p className="experience-block-company">
                     {exp.company} <span>· {exp.location}</span>
                   </p>
-                </header>
+                </motion.header>
 
-                <h4 className="experience-highlight">{exp.highlight}</h4>
+                <motion.h4 className="experience-highlight" variants={riseItem} {...inView(0.6)}>
+                  {exp.highlight}
+                </motion.h4>
 
                 {isMobile ? (
                   // Phones: stack stays visible, the bullet points open on tap

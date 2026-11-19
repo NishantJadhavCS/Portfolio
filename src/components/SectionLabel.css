@@ -21,3 +21,10 @@
   background: var(--glass-border);
   transform-origin: left center;
 }
+
+/* Clips the title while it rises in; small bottom padding keeps descenders visible */
+.section-label-mask {
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
