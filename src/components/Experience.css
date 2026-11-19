@@ -202,19 +202,50 @@
   margin: 0;
 }
 
+/* One-line takeaway that leads the block */
+.experience-highlight {
+  max-width: 620px;
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+/* Two labelled columns: what was built, and the stack used */
+.experience-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 24px 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.experience-col-label {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
 .experience-points {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  margin: 0 0 32px;
+  gap: 10px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .experience-points li {
   position: relative;
-  padding-left: 28px;
-  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  padding-left: 22px;
+  font-size: 0.98rem;
   line-height: 1.6;
   color: var(--text-secondary);
 }
@@ -224,20 +255,22 @@
   position: absolute;
   left: 0;
   top: 0.8em;
-  width: 12px;
+  width: 10px;
   height: 1px;
-  background: var(--accent-primary);
+  background: var(--text-muted);
 }
 
-.experience-tech {
+.experience-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin: 0;
-  padding-left: 28px;
+  padding: 0;
+  list-style: none;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  line-height: 1.9;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
 }
 
@@ -349,24 +382,31 @@
     color: var(--text-muted);
   }
 
-  .experience-points {
-    gap: 14px;
+  .experience-highlight {
     margin-bottom: 20px;
+    font-size: 1.45rem;
+  }
+
+  /* Columns stack; the stack list flows inline to save height */
+  .experience-details {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-top: 20px;
+  }
+
+  .experience-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 18px;
   }
 
   .experience-points li {
     padding-left: 20px;
-    font-size: 0.98rem;
-    color: var(--text-muted);
+    font-size: 0.95rem;
   }
 
   .experience-points li::before {
     width: 9px;
-    background: var(--text-muted);
-  }
-
-  .experience-tech {
-    padding-left: 0;
   }
 }
 

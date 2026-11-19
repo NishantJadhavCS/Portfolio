@@ -11,6 +11,7 @@ const experiences = [
     location: 'USA · Remote',
     start: 'Jul 2025',
     end: 'Present',
+    highlight: 'Shipped Juler to the Shopify App Store',
     points: [
       'Built and launched Juler, a public Shopify App Store app for personalized jewelry dropshipping and e-commerce automation.',
       'Built React frontend integrated with Django backend APIs using a scalable architecture.',
@@ -24,6 +25,7 @@ const experiences = [
     location: 'India',
     start: 'Aug 2024',
     end: 'Jul 2025',
+    highlight: "Developed and maintained Guyal's Shopify jewelry store",
     points: [
       'Developed and customized Shopify stores, workflows, and high-performance e-commerce solutions.',
       'Built responsive interfaces, analytics integrations, and performance-focused features.',
@@ -37,6 +39,7 @@ const experiences = [
     location: 'Remote · Self-employed',
     start: 'Jun 2023',
     end: 'Present',
+    highlight: 'Websites and Shopify stores for independent brands',
     points: [
       'Built modern websites, e-commerce platforms, and custom web solutions for diverse clients.',
       'Focused on SEO optimization, analytics integration, and responsive UI development.',
@@ -156,19 +159,33 @@ function Experience() {
                   </p>
                 </header>
 
-                <motion.ul
-                  className="experience-points"
+                <h4 className="experience-highlight">{exp.highlight}</h4>
+
+                {/* Details split into two labelled columns so the block scans instead of reading as one long list */}
+                <motion.div
+                  className="experience-details"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.8, ease }}
                 >
-                  {exp.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </motion.ul>
-
-                <p className="experience-tech">{exp.tech.join(' · ')}</p>
+                  <div>
+                    <p className="experience-col-label">What I built</p>
+                    <ul className="experience-points">
+                      {exp.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="experience-col-label">Stack</p>
+                    <ul className="experience-stack">
+                      {exp.tech.map((tool) => (
+                        <li key={tool}>{tool}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
               </article>
             ))}
           </div>
